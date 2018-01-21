@@ -82,7 +82,7 @@ namespace SmartAgent.WcfService
 
         public string Tag()
         {
-            return "yesss";
+            return "coucou";
         }
 
         public void Init()
