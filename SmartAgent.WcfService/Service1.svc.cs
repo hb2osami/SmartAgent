@@ -67,8 +67,6 @@ namespace SmartAgent.WcfService
         //{
         //    return a.FirstName.Contains("mon");
         //}
-
-
         public CompositeType GetDataUsingDataContract(CompositeType composite)
         {
             if (composite == null)
