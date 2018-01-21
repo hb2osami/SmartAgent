@@ -1,0 +1,8 @@
+﻿Ajouter un nouvel élément de type "ADO.NET Entity Data Model"
+et choissisez "EF designer à partir de la base de données"
+Dans l'assistant, sélection comme DB : "(LocalDb)\MSSQLLocalDB"
+
+
+Utiliser la commande Enable-Migrations de la console du gestionnaire de package pour ajouter une configuration de migrations (en ayant selectionné le projet Model)
+
+Puis à chaque modification du modele, lancer la commande 'Add-Migration' dans la meme console
