@@ -45,6 +45,10 @@ namespace SmartAgent.WcfService
         TacheDTO[] GetTasks();
 
         [OperationContract]
+        [WebGet(UriTemplate = "/Tasks/{sort}/{order}")]
+        TacheDTO[] GetTasks(string sort , string order);
+
+        [OperationContract]
         
         [WebGet(UriTemplate = "/Task/{id}")]
         TacheDTO GetTask(string id);
@@ -53,9 +57,13 @@ namespace SmartAgent.WcfService
         [WebGet(UriTemplate = "/Search{nom}")]
         AgentDTO[] Search(String nom);
 
+        //[OperationContract]
+        //[WebInvoke(Method = "POST", UriTemplate = "/AddAgent/{fName}/{lName}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        //void AddAgent(string fName,string lName);
+
         [OperationContract]
-        [WebInvoke(Method = "POST", UriTemplate = "/AddAgent/{fName}/{lName}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        void AddAgent(string fName,string lName);
+        [WebInvoke(Method = "POST", UriTemplate = "/AddAgent/", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        AgentDTO AddAgent(AgentDTO ag );
 
         [OperationContract]
         [WebInvoke(Method = "POST", UriTemplate = "/AddTask/{idA}/{nomTache}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]

@@ -122,6 +122,18 @@ namespace SmartAgent.Services.Gestion
             }
             return retour;
         }
+        public int AddAgent(AgentDTO ag)
+        {
+            //int retour;
+            ////Agent agent = new Model.Agent() { FirstName = ag.prenom, LastName = ag.nom, BirthDate = DateTime.Now ,Company=ag. };
+            //using (var context = new Model.SmartAgentDbEntities())
+            //{
+            //    context.Agents.Add(agent);
+            //    retour = context.SaveChanges();
+            //}
+            //return retour;
+            return 1;
+        }
 
         public int UpdateAgent(int idA, string newFname)
         {

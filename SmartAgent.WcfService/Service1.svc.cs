@@ -23,7 +23,11 @@ namespace SmartAgent.WcfService
         {
              ga.AddAgent(fName, lName, DateTime.Now);
         }
-
+        public AgentDTO AddAgent(AgentDTO ag)
+        {
+            return ag;
+            
+        }
         public AgentDTO[] GetAgents()
         {
             return ga.GetAgents();
@@ -82,7 +86,7 @@ namespace SmartAgent.WcfService
 
         public string Tag()
         {
-            return "coucou";
+            return "cava mimossun";
         }
 
         public void Init()
@@ -136,6 +140,11 @@ namespace SmartAgent.WcfService
         public int DeleteTask(string idT)
         {
            return gt.DeleteTask(int.Parse(idT));
+        }
+
+        public TacheDTO[] GetTasks(string sort, string order)
+        {
+            
         }
     }
 }
