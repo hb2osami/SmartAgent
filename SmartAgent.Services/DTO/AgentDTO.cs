@@ -21,8 +21,8 @@ namespace SmartAgent.Services.DTO
         public string job { get; set; }
         [DataMember]
         public string company { get; set; }
-        [DataMember]
-        public TacheDTO[] tasks { get; set; }
+        //[DataMember]
+        //public TacheDTO[] tasks { get; set; }
 
         public AgentDTO(Agent ag)
         {
@@ -31,7 +31,7 @@ namespace SmartAgent.Services.DTO
             id = ag.Id;
             job = ag.Job;
             company = ag.Company;
-            tasks = ag.ReportedTasks.ToArray().Select(a => new TacheDTO(a)).ToArray();
+           // tasks = ag.ReportedTasks.ToArray().Select(a => new TacheDTO(a)).ToArray();
         }
 
         

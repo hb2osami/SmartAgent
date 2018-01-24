@@ -15,32 +15,31 @@ namespace SmartAgent.Services.DTO
         [DataMember]
         public int id { get; set; }
         [DataMember]
-        public string name { get; set; }
+        public string task { get; set; }
         [DataMember]
         public string location { get; set; }
         [DataMember]
         public string priority { get; set; }
         [DataMember]
-        public string company  { get; set; }
+        public string company { get; set; }
         [DataMember]
         public string job { get; set; }
         [DataMember]
-        public string fnameAg { get; set; }
-        [DataMember]
-        public string lnameAg { get; set; }
+        public string name { get; set; }
 
+        [DataMember]
+        public int idA { get; set; }
 
         public TacheDTO(Model.Task t)
         {
             id = t.Id;
-            name = t.Label;
+            task = t.Label;
             location = t.Location;
             priority = t.Priority;
             job =t.Author.Job;
             company = t.Author.Company;
-            fnameAg = t.Author.FirstName;
-            lnameAg = t.Author.LastName;
-            //job = Model.Agent
+            name = t.Author.FirstName +" "+ t.Author.LastName;
+            idA = t.Author.Id;
         }
         //used for test
     }

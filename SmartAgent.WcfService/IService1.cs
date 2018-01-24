@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using SmartAgent.Services.DTO;
+using SmartAgent.WcfService.filters;
 
 namespace SmartAgent.WcfService
 {
@@ -36,38 +37,35 @@ namespace SmartAgent.WcfService
         [WebGet(UriTemplate = "/Agents")]
         AgentDTO[] GetAgents();
 
+
         [OperationContract]
-        [WebGet(UriTemplate = "/Agent/{idA}")]
+        [WebGet(UriTemplate = "/Agents/{idA}")]
         AgentDTO GetAgent(string idA);
+
 
         [OperationContract]
         [WebGet(UriTemplate = "/Tasks")]
         TacheDTO[] GetTasks();
-
-        [OperationContract]
-        [WebGet(UriTemplate = "/Tasks/{sort}/{order}")]
-        TacheDTO[] GetTasks(string sort , string order);
-
         [OperationContract]
         
-        [WebGet(UriTemplate = "/Task/{id}")]
+        [WebGet(UriTemplate = "/Tasks/{id}")]
         TacheDTO GetTask(string id);
 
-        [OperationContract]
-        [WebGet(UriTemplate = "/Search{nom}")]
-        AgentDTO[] Search(String nom);
+        //[WebGet(UriTemplate = "/Tasks/filters")]
+        //Filter[] GetTaskFilters(string id);
+
 
         //[OperationContract]
         //[WebInvoke(Method = "POST", UriTemplate = "/AddAgent/{fName}/{lName}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         //void AddAgent(string fName,string lName);
 
         [OperationContract]
-        [WebInvoke(Method = "POST", UriTemplate = "/AddAgent/", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        AgentDTO AddAgent(AgentDTO ag );
+        [WebInvoke(Method = "POST", UriTemplate = "/Agents/", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        int AddAgent(AgentDTO ag );
 
         [OperationContract]
-        [WebInvoke(Method = "POST", UriTemplate = "/AddTask/{idA}/{nomTache}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        void AddTask(string idA,string nomTache);
+        [WebInvoke(Method = "POST", UriTemplate = "/Tasks/", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        void AddTask(TacheDTO task);
 
         [OperationContract]
         [WebInvoke(Method = "PUT", UriTemplate = "/Agent/update/{idA}/{newFname}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
@@ -78,7 +76,7 @@ namespace SmartAgent.WcfService
         int UpdateTask(string idT, string newLabel);
 
         [OperationContract]
-        [WebInvoke(Method = "DELETE", UriTemplate = "/Agent/delete/{idA}")]
+        [WebInvoke(Method = "DELETE", UriTemplate = "/Agents/{idA}")]
         int DeleteAgent(string idA);
 
         [OperationContract]

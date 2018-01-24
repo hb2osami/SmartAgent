@@ -124,15 +124,14 @@ namespace SmartAgent.Services.Gestion
         }
         public int AddAgent(AgentDTO ag)
         {
-            //int retour;
-            ////Agent agent = new Model.Agent() { FirstName = ag.prenom, LastName = ag.nom, BirthDate = DateTime.Now ,Company=ag. };
-            //using (var context = new Model.SmartAgentDbEntities())
-            //{
-            //    context.Agents.Add(agent);
-            //    retour = context.SaveChanges();
-            //}
-            //return retour;
-            return 1;
+            int retour;
+            Agent agent = new Model.Agent() { FirstName = ag.prenom, LastName = ag.nom, BirthDate = DateTime.Now ,Company=ag.company ,Job = ag.job };
+            using (var context = new Model.SmartAgentDbEntities())
+            {
+                context.Agents.Add(agent);
+                retour = context.SaveChanges();
+            }
+            return retour;
         }
 
         public int UpdateAgent(int idA, string newFname)
@@ -157,8 +156,6 @@ namespace SmartAgent.Services.Gestion
                 {
                     gt.DeleteTask(agent.ReportedTasks.ElementAt(i).Id);
                 }
-                //foreach (var task in agent.ReportedTasks)
-                //    context.Tasks.Remove(task);
                 context.Agents.Remove(agent);
                 context.SaveChanges();
                 return 1;

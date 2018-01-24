@@ -8,6 +8,7 @@ using System.Text;
 using SmartAgent.Services;
 using SmartAgent.Services.Gestion;
 using SmartAgent.Services.DTO;
+using SmartAgent.WcfService.filters;
 
 namespace SmartAgent.WcfService
 {
@@ -19,23 +20,15 @@ namespace SmartAgent.WcfService
 
         private GestionTache gt = new GestionTache();
 
-        public void AddAgent(string fName,string lName)
+        public int  AddAgent(AgentDTO ag)
         {
-             ga.AddAgent(fName, lName, DateTime.Now);
-        }
-        public AgentDTO AddAgent(AgentDTO ag)
-        {
-            return ag;
+            return ga.AddAgent(ag);
             
         }
+
         public AgentDTO[] GetAgents()
         {
             return ga.GetAgents();
-        }
-
-        public AgentDTO[] Search(string nom)
-        {
-            return ga.GetAgents(nom);
         }
 
         public string GetData(int value)
@@ -63,6 +56,7 @@ namespace SmartAgent.WcfService
             //{
             //    item.prenom
             //}
+
 
             return string.Format("You entered: {0}", value);
         }
@@ -104,10 +98,9 @@ namespace SmartAgent.WcfService
             return ga.GetAgent(int.Parse(idA));
         }
 
-        public void AddTask(string idA,string nomTache )
+        public void AddTask(TacheDTO task)
         {
-            gt.AddTask(int.Parse(idA), nomTache);
-            
+            gt.AddTask(task);
         }
 
         public void Clean()
@@ -142,9 +135,13 @@ namespace SmartAgent.WcfService
            return gt.DeleteTask(int.Parse(idT));
         }
 
-        public TacheDTO[] GetTasks(string sort, string order)
-        {
-            
-        }
+       
+
+
+
+        //public Filter[] GetTaskFilters(string id)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

@@ -1,6 +1,7 @@
 ﻿using SmartAgent.Model;
 using SmartAgent.Services.DTO;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,14 +15,24 @@ namespace SmartAgent.Services.Gestion
         {
 
         }
+        //public enum SortDirection { Ascending, Descending }
+        //public void Sort<TKey>(ref List<TacheDTO> list,
+        //                       Func<TacheDTO, TKey> sorter, SortDirection direction)
+        //{
+        //    if (direction == SortDirection.Ascending)
+        //        list = list.OrderBy(sorter);
+        //    else
+        //        list = list.OrderByDescending(sorter);
+        //}
         public DTO.TacheDTO[] GetTasks()
         {
             using (var context = new Model.SmartAgentDbEntities())
             {
                 TacheDTO[] tasks = context.Tasks.ToArray().Select(a => new TacheDTO(a)).ToArray();
+                List < TacheDTO > list = context.Tasks.ToList().Select(a => new TacheDTO(a)).ToList();
                 return tasks;
             }
-        }
+        }      
         public TacheDTO GetTask(int id)
         {
             using (var context = new Model.SmartAgentDbEntities())
@@ -59,6 +70,19 @@ namespace SmartAgent.Services.Gestion
                 context.SaveChanges();
 
 
+            }
+            return 1;
+        }
+        public int AddTask(TacheDTO t)
+        {
+            using (var context = new Model.SmartAgentDbEntities())
+            {
+                Agent agent = context.Agents.Find(t.id);
+                if (agent == null) return 0;
+                Model.Task task = new Model.Task { Label = t.name, Priority = t.priority, Location = t.location,Author=agent };
+                agent.ReportedTasks.Add(task);
+                //context.Tasks.Add(task);
+                context.SaveChanges();
             }
             return 1;
         }
