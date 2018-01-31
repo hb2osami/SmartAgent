@@ -42,6 +42,9 @@ namespace SmartAgent.WcfService
         [WebGet(UriTemplate = "/Agents/{idA}")]
         AgentDTO GetAgent(string idA);
 
+        [OperationContract]
+        [WebGet(UriTemplate = "/Agents/Filters")]
+        List<Filter> GetAgentsFilters();
 
         [OperationContract]
         [WebGet(UriTemplate = "/Tasks")]
@@ -50,6 +53,11 @@ namespace SmartAgent.WcfService
         
         [WebGet(UriTemplate = "/Tasks/{id}")]
         TacheDTO GetTask(string id);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/Tasks/Filters")]
+        List<Filter> GetTasksFilters();
+
 
         //[WebGet(UriTemplate = "/Tasks/filters")]
         //Filter[] GetTaskFilters(string id);
@@ -65,22 +73,22 @@ namespace SmartAgent.WcfService
 
         [OperationContract]
         [WebInvoke(Method = "POST", UriTemplate = "/Tasks/", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        void AddTask(TacheDTO task);
+        int AddTask(TacheDTO task);
 
         [OperationContract]
-        [WebInvoke(Method = "PUT", UriTemplate = "/Agent/update/{idA}/{newFname}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        int UpdateAgent(string idA, string newFname);
+        [WebInvoke(Method = "PUT", UriTemplate = "/Agents/", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        int UpdateAgent(AgentDTO ag);
 
         [OperationContract]
-        [WebInvoke(Method = "PUT", UriTemplate = "/Task/update/{idT}/{newLabel}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        int UpdateTask(string idT, string newLabel);
+        [WebInvoke(Method = "PUT", UriTemplate = "/Tasks/update/", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        int UpdateTask(TacheDTO  task);
 
         [OperationContract]
         [WebInvoke(Method = "DELETE", UriTemplate = "/Agents/{idA}")]
         int DeleteAgent(string idA);
 
         [OperationContract]
-        [WebInvoke(Method = "DELETE", UriTemplate = "/Task/delete/{idT}")]
+        [WebInvoke(Method = "DELETE", UriTemplate = "/Tasks//{idT}")]
         int DeleteTask(string idT);
 
         // TODO: ajoutez vos opérations de service ici

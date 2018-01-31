@@ -15,15 +15,6 @@ namespace SmartAgent.Services.Gestion
         {
 
         }
-        //public enum SortDirection { Ascending, Descending }
-        //public void Sort<TKey>(ref List<TacheDTO> list,
-        //                       Func<TacheDTO, TKey> sorter, SortDirection direction)
-        //{
-        //    if (direction == SortDirection.Ascending)
-        //        list = list.OrderBy(sorter);
-        //    else
-        //        list = list.OrderByDescending(sorter);
-        //}
         public DTO.TacheDTO[] GetTasks()
         {
             using (var context = new Model.SmartAgentDbEntities())
@@ -51,50 +42,32 @@ namespace SmartAgent.Services.Gestion
             }
 
         }
-
-        public int AddTask(int AgentId,String label)
-        {
-            using (var context = new Model.SmartAgentDbEntities())
-            {
-                Agent agent = context.Agents.Find(AgentId);
-
-                if (agent == null) return 0;
-
-                Model.Task task = new Model.Task { Label = label, Priority = "high", Location = "Paris" };
-
-                List<Model.Task> lt = new List<Model.Task>();
-
-                lt.Add(task);
-                agent.ReportedTasks.Add(task);
-                //context.Tasks.Add(task);
-                context.SaveChanges();
-
-
-            }
-            return 1;
-        }
         public int AddTask(TacheDTO t)
         {
             using (var context = new Model.SmartAgentDbEntities())
             {
-                Agent agent = context.Agents.Find(t.id);
+                Agent agent = context.Agents.Find(t.idA);
                 if (agent == null) return 0;
-                Model.Task task = new Model.Task { Label = t.name, Priority = t.priority, Location = t.location,Author=agent };
+                Model.Task task = new Model.Task { Label = t.task, Priority = t.priority, Location = t.location,Author=agent };
                 agent.ReportedTasks.Add(task);
                 //context.Tasks.Add(task);
                 context.SaveChanges();
             }
             return 1;
         }
-        public int UpdateTask(int idT, string newLabel)
+        public int UpdateTask(TacheDTO t)
         {
             using (var context = new Model.SmartAgentDbEntities())
             {
-                Model.Task task = context.Tasks.Find(idT);
-                if (task == null) return 0;
-                task.Label = newLabel;
+                Model.Task tache = context.Tasks.Find(t.id);
+                Model.Agent agent = context.Agents.Find(t.idA);
+                if (tache == null) return 0;
+                tache.Label = t.task;
+                tache.Location = t.location;
+                tache.Priority = t.priority;
+                tache.Author = agent;
                 context.SaveChanges();
-                return task.Id;
+                return 1;
             }
 
         }

@@ -134,15 +134,17 @@ namespace SmartAgent.Services.Gestion
             return retour;
         }
 
-        public int UpdateAgent(int idA, string newFname)
+        public int UpdateAgent(AgentDTO ag )
         {
             using (var context = new Model.SmartAgentDbEntities())
             {
-                Agent agent = context.Agents.Find(idA);
+                Agent agent = context.Agents.Find(ag.id);
                 if (agent == null) return 0;
-                agent.FirstName = newFname;
+                agent.FirstName = ag.prenom;
+                agent.LastName = ag.nom;
+                agent.Job = ag.job;
                 context.SaveChanges();
-                return agent.Id;   
+                return 1;   
             }
 
         }

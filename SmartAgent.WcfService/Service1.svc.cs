@@ -20,6 +20,8 @@ namespace SmartAgent.WcfService
 
         private GestionTache gt = new GestionTache();
 
+        private GestionFilters gf = new GestionFilters();
+
         public int  AddAgent(AgentDTO ag)
         {
             return ga.AddAgent(ag);
@@ -98,9 +100,9 @@ namespace SmartAgent.WcfService
             return ga.GetAgent(int.Parse(idA));
         }
 
-        public void AddTask(TacheDTO task)
+        public int AddTask(TacheDTO task)
         {
-            gt.AddTask(task);
+            return gt.AddTask(task);
         }
 
         public void Clean()
@@ -112,19 +114,14 @@ namespace SmartAgent.WcfService
         {
             return gt.GetTask(int.Parse(id));
         }
-
-
-
-        public int UpdateAgent(string idA, string newFname)
+        public int UpdateAgent(AgentDTO ag)
         {
-            return ga.UpdateAgent(int.Parse(idA), newFname);
+            return ga.UpdateAgent(ag);
         }
-
-        public int UpdateTask(string idT, string newFname)
+        public int UpdateTask(TacheDTO task)
         {
-            return gt.UpdateTask(int.Parse(idT), newFname);
+            return gt.UpdateTask(task);
         }
-
         public int DeleteAgent(string idA)
         {
             return ga.DeleteAgent(int.Parse(idA));
@@ -135,13 +132,13 @@ namespace SmartAgent.WcfService
            return gt.DeleteTask(int.Parse(idT));
         }
 
-       
-
-
-
-        //public Filter[] GetTaskFilters(string id)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public List<Filter> GetAgentsFilters()
+        {
+            return gf.GetAgentsFilters();
+        }
+        public List<Filter> GetTasksFilters()
+        {
+            return gf.GetTasksFilters();
+        }
     }
 }
