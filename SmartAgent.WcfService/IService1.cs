@@ -7,6 +7,7 @@ using System.ServiceModel.Web;
 using System.Text;
 using SmartAgent.Services.DTO;
 using SmartAgent.WcfService.filters;
+using SmartAgent.Services.Pagination;
 
 namespace SmartAgent.WcfService
 {
@@ -37,6 +38,9 @@ namespace SmartAgent.WcfService
         [WebGet(UriTemplate = "/Agents")]
         AgentDTO[] GetAgents();
 
+        [OperationContract]
+        [WebGet(UriTemplate = "/Agents/?size={size}&skip={skip}")]
+        AgentsPag GetAgentsPag(string size , string skip);
 
         [OperationContract]
         [WebGet(UriTemplate = "/Agents/{idA}")]

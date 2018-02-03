@@ -9,6 +9,7 @@ using SmartAgent.Services;
 using SmartAgent.Services.Gestion;
 using SmartAgent.Services.DTO;
 using SmartAgent.WcfService.filters;
+using SmartAgent.Services.Pagination;
 
 namespace SmartAgent.WcfService
 {
@@ -28,10 +29,11 @@ namespace SmartAgent.WcfService
             
         }
 
-        public AgentDTO[] GetAgents()
+        public AgentDTO[] GetAgents( )
         {
             return ga.GetAgents();
         }
+        
 
         public string GetData(int value)
         {
@@ -139,6 +141,13 @@ namespace SmartAgent.WcfService
         public List<Filter> GetTasksFilters()
         {
             return gf.GetTasksFilters();
+        } 
+        public AgentsPag GetAgentsPag(string sizePage, string skip)
+        {
+            AgentsPag agents = ga.GetAgents(int.Parse(sizePage), int.Parse(skip));
+
+            return agents;
+
         }
     }
 }

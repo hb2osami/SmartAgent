@@ -1,5 +1,6 @@
 ﻿using SmartAgent.Model;
 using SmartAgent.Services.DTO;
+using SmartAgent.Services.Pagination;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -93,24 +94,25 @@ namespace SmartAgent.Services.Gestion
         {
             using (var context = new Model.SmartAgentDbEntities())
             {
-                //context.Agents.Add(new Agent() { FirstName = "a", LastName = "b",BirthDate=DateTime.Now });
-               // int res = context.SaveChanges();
-                AgentDTO[] agents = context.Agents.ToArray().Select(a => new AgentDTO(a)).ToArray();
                 
+                AgentDTO[] agents = context.Agents.ToArray().Select(a => new AgentDTO(a)).ToArray();
+               
                 return agents;
-                //agent[] tmp = context.agents.toarray();
-
-                //for (int i = 0; i < tmp.length; i++)
-                //{
-                //    agents[i] = new agentdto(tmp[i]);
-
-                //}
-                //return agents;
             }
-            //AgentDTO[] agents = { new AgentDTO("sami", "aassa", 4), new AgentDTO("dasaasahmani", "mstafa", 4) };
-            //return agents;
         }
-        
+        public AgentsPag GetAgents(int sizeP , int skip)
+        {
+            using (var context = new Model.SmartAgentDbEntities())
+            {
+                AgentsPag agts = new AgentsPag();
+                agts.agents= context.Agents.ToArray().Select(a => new AgentDTO(a)).Skip(skip).Take(sizeP).ToArray();
+                agts.total = context.Agents.Count();
+                
+                return agts;
+            }
+        }
+
+
         public int AddAgent(String nom, String prenom, DateTime date)
         {
             int retour;
