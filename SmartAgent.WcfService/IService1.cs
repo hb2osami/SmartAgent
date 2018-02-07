@@ -39,6 +39,11 @@ namespace SmartAgent.WcfService
         AgentDTO[] GetAgents();
 
         [OperationContract]
+        [WebGet(UriTemplate = "/Agents?sort={sort}")]
+        AgentDTO[] GetAgentsSorted(string sort);
+
+
+        [OperationContract]
         [WebGet(UriTemplate = "/Agents/?size={size}&skip={skip}")]
         AgentsPag GetAgentsPag(string size , string skip);
 

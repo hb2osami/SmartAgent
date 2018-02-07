@@ -50,7 +50,6 @@ namespace SmartAgent.Services.Gestion
                 if (agent == null) return 0;
                 Model.Task task = new Model.Task { Label = t.task, Priority = t.priority, Location = t.location,Author=agent };
                 agent.ReportedTasks.Add(task);
-                //context.Tasks.Add(task);
                 context.SaveChanges();
             }
             return 1;

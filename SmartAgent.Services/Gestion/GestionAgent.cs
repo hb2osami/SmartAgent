@@ -4,6 +4,7 @@ using SmartAgent.Services.Pagination;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,52 +15,50 @@ namespace SmartAgent.Services.Gestion
         public GestionAgent()
         {
             //context = new SmartAgentDbEntities();
-
         }
         public void clean()
         {
             using (var context = new Model.SmartAgentDbEntities())
             {
                 context.Database.ExecuteSqlCommand("DELETE FROM Agents");
-
-
                 context.SaveChanges();
             }
         }
         public void Initialize() {
 
-            Agent[] agents = { new Model.Agent() { FirstName = "Francois", LastName = "Ali", BirthDate = DateTime.Now },
-                            new Model.Agent() { FirstName = "Toto", LastName = "Titi", BirthDate = DateTime.Now },
-                            new Model.Agent() { FirstName = "Tata", LastName = "tutu", BirthDate = DateTime.Now },
-                            new Model.Agent() { FirstName = "Laurent", LastName = "Lolo", BirthDate = DateTime.Now },
-                            new Model.Agent() { FirstName = "Amandine", LastName = "toto", BirthDate = DateTime.Now },
-                            new Model.Agent() { FirstName = "Maceo", LastName = "Plex", BirthDate = DateTime.Now }
+            Agent[] agents = { new Model.Agent() { FirstName = "Francois", LastName = "dumeige", Company ="ass" ,Job ="technicien",BirthDate = DateTime.Now },
+                            new Model.Agent() { FirstName = "Eric", LastName = "dupont", Company ="a2II" ,Job ="technicien de surface", BirthDate = DateTime.Now },
+                            new Model.Agent() { FirstName = "Nastia", LastName = "pellet", Company ="cst" ,Job ="ingénieur", BirthDate = DateTime.Now },
+                            new Model.Agent() { FirstName = "Laurent", LastName = "Brod",  Company ="alp" ,Job ="plombier",BirthDate = DateTime.Now },
+                            new Model.Agent() { FirstName = "Amandine", LastName = "Lee", Company ="cst" ,Job ="technicien reseau", BirthDate = DateTime.Now },
+                            new Model.Agent() { FirstName = "Maceo", LastName = "Plex",  Company ="tpa" ,Job ="technicien cablage", BirthDate = DateTime.Now }
             };
 
-            Agent test = new Agent() { FirstName = "Toto", LastName = "Titi", BirthDate = DateTime.Now };
 
             Model.Task ta = new Model.Task { Label = "reseaux", Location = "Paris" };
             Model.Task tb = new Model.Task { Label = "plomberie", Location = "rennes" };
             Model.Task tc = new Model.Task { Label = "menage", Location = "caen" };
 
-            List<Model.Task> lt = new List<Model.Task>();
-            lt.Add(ta);
-            lt.Add(tb);
-            lt.Add(tc);
-            agents[2].ReportedTasks = lt;
+            //agents[4].ReportedTasks.Add(ta);
+            //agents[3].ReportedTasks.Add(tb);
+            //agents[1].ReportedTasks.Add(ta);
+
+            using (var context = new Model.SmartAgentDbEntities())
+            {
+                foreach (Model.Agent agent in agents) {
+                    context.Agents.Add(agent);
+                }
+                context.SaveChanges();
+            }
 
         }
-
-
         public AgentDTO[] GetAgent(String nom)
         {
             using (var context = new Model.SmartAgentDbEntities())
             {
                 AgentDTO[] agents = context.Agents.Where(a => a.FirstName.Contains(nom)).ToArray().Select(a => new AgentDTO(a)).ToArray();
                 return agents;
-
             }
-
         }
         public AgentDTO GetAgent(int id)
         {
@@ -69,7 +68,6 @@ namespace SmartAgent.Services.Gestion
                 if (agent == null) return null;
                 return new AgentDTO(agent);
             }
-
         }
         public DTO.AgentDTO[] GetAgents(String nom)
         {
@@ -77,10 +75,8 @@ namespace SmartAgent.Services.Gestion
             {
                 AgentDTO[] agents = context.Agents.Where(a => a.FirstName.Contains(nom)).ToArray().Select(a => new AgentDTO(a)).ToArray();
                 return agents;
-
             }
         }
-
         public Agent[] test(String nom)
         {
             using (var context = new Model.SmartAgentDbEntities())
@@ -100,6 +96,16 @@ namespace SmartAgent.Services.Gestion
                 return agents;
             }
         }
+
+        public DTO.AgentDTO[] GetAgentsSorted(string sort)
+        {
+            using (var context = new Model.SmartAgentDbEntities())
+            {
+                AgentDTO[] agents = context.Agents.OrderBy(sort, true).ToArray().Select(a => new AgentDTO(a)).ToArray();
+                return agents;
+            }
+        }
+
         public AgentsPag GetAgents(int sizeP , int skip)
         {
             using (var context = new Model.SmartAgentDbEntities())
@@ -129,7 +135,7 @@ namespace SmartAgent.Services.Gestion
             int retour;
             Agent agent = new Model.Agent() { FirstName = ag.prenom, LastName = ag.nom, BirthDate = DateTime.Now ,Company=ag.company ,Job = ag.job };
             using (var context = new Model.SmartAgentDbEntities())
-            {
+            { 
                 context.Agents.Add(agent);
                 retour = context.SaveChanges();
             }
@@ -148,7 +154,6 @@ namespace SmartAgent.Services.Gestion
                 context.SaveChanges();
                 return 1;   
             }
-
         }
         public int DeleteAgent(int idA) {
             using (var context = new Model.SmartAgentDbEntities())
@@ -164,7 +169,6 @@ namespace SmartAgent.Services.Gestion
                 context.SaveChanges();
                 return 1;
             }
-
         }
         public static implicit operator GestionAgent(GestionTache v)
         {

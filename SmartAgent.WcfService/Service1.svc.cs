@@ -33,8 +33,6 @@ namespace SmartAgent.WcfService
         {
             return ga.GetAgents();
         }
-        
-
         public string GetData(int value)
         {
             //Model.Agent agent = new Model.Agent() { FirstName = "Valentin", LastName = "DURAND", BirthDate = DateTime.Now };
@@ -64,11 +62,6 @@ namespace SmartAgent.WcfService
 
             return string.Format("You entered: {0}", value);
         }
-
-        //public bool function(Model.Agent a)
-        //{
-        //    return a.FirstName.Contains("mon");
-        //}
         public CompositeType GetDataUsingDataContract(CompositeType composite)
         {
             if (composite == null)
@@ -148,6 +141,10 @@ namespace SmartAgent.WcfService
 
             return agents;
 
+        }
+        public AgentDTO[] GetAgentsSorted(string sort)
+        {
+            return ga.GetAgentsSorted(sort);
         }
     }
 }

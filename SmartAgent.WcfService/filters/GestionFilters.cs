@@ -1,6 +1,8 @@
-﻿using System;
+﻿using SmartAgent.Services.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 
 namespace SmartAgent.WcfService.filters
@@ -11,56 +13,53 @@ namespace SmartAgent.WcfService.filters
         {
             List <Filter> listF = new List<Filter>();
 
-            using (var context = new Model.SmartAgentDbEntities())
+            PropertyInfo[] properties = typeof(AgentDTO).GetProperties();
+            foreach (PropertyInfo property in properties)
             {
-                var data = context.Agents.FirstOrDefault();
-                var props = data.GetType().GetProperties();
-                
-               
 
-                foreach (var column in props)
-                {
-                    //if ( column.PropertyType.IsInstanceOfType(typeof(System.String))){
-
-                    //    Filter tmp = new Filter(column.Name, column.MemberType.ToString());
-                    //    listF.Add(tmp);
-                    //    string columnName = column.Name;
-                    //    string columnValue = string.Empty;
-                    //}
-                    Filter tmp = new Filter(column.Name, column.PropertyType.Name);
-                    listF.Add(tmp);
-                }
-                return listF;
-
+                Filter tmp = new Filter(property.Name, property.PropertyType.Name);
+                listF.Add(tmp);
             }
-           
+            return listF;
+            //using (var context = new Model.SmartAgentDbEntities())
+            //{
+            //    var data = context.Agents.FirstOrDefault();
+            //    var props = data.GetType().GetProperties();
+
+            //    foreach (var column in props)
+            //    {
+            //        Filter tmp = new Filter(column.Name, column.PropertyType.Name);
+            //        listF.Add(tmp);
+            //    }
+            //    return listF;
+            //}
+
         }
         public List<Filter> GetTasksFilters()
         {
             List<Filter> listF = new List<Filter>();
 
-            using (var context = new Model.SmartAgentDbEntities())
+
+            PropertyInfo[] properties = typeof(TacheDTO).GetProperties();
+            foreach (PropertyInfo property in properties)
             {
-                var data = context.Tasks.FirstOrDefault();
-                var props = data.GetType().GetProperties();
 
-
-
-                foreach (var column in props)
-                {
-                    //if ( column.PropertyType.IsInstanceOfType(typeof(System.String))){
-
-                    //    Filter tmp = new Filter(column.Name, column.MemberType.ToString());
-                    //    listF.Add(tmp);
-                    //    string columnName = column.Name;
-                    //    string columnValue = string.Empty;
-                    //}
-                    Filter tmp = new Filter(column.Name, column.PropertyType.Name);
-                    listF.Add(tmp);
-                }
-                return listF;
-
+                Filter tmp = new Filter(property.Name, property.PropertyType.Name);
+                listF.Add(tmp);
             }
+            return listF;
+            //using (var context = new Model.SmartAgentDbEntities())
+            //{
+            //    var data = context.Tasks.FirstOrDefault();
+            //    var props = data.GetType().GetProperties();
+            //    foreach (var column in props)
+            //    {
+            //        Filter tmp = new Filter(column.Name, column.PropertyType.Name);
+            //        listF.Add(tmp);
+            //    }
+            //    return listF;
+
+            //}
 
         }
 
