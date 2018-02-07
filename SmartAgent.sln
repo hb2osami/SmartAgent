@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartAgent.WebApplication", "SmartAgent.WebApplication\SmartAgent.WebApplication.csproj", "{D28004F9-11B2-444C-A53D-6B536F9E7DA8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EB7764A9-17B8-4866-BC26-18DC387E8935} = {EB7764A9-17B8-4866-BC26-18DC387E8935}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartAgent.WebApplication.Tests", "SmartAgent.WebApplication.Tests\SmartAgent.WebApplication.Tests.csproj", "{EC745822-3582-49A5-BE20-D91A412E008D}"
 EndProject
