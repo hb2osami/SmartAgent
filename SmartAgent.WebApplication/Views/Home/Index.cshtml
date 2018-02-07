@@ -1,62 +1,44 @@
 ﻿<div ng-controller="HomeController">
-    <h2>List of issues reported</h2>
-    <button ng-click="showCheckboxes = ! showCheckboxes" type="button" class="btn btn-dark"><span id="btnicon" class="glyphicon glyphicon-plus" aria-hidden="true"></span> Column choice</button>
-    <button ng-click="showSearch = ! showSearch" type="button" class="btn btn-dark"><span id="btnicon" class="glyphicon glyphicon-plus" aria-hidden="true"></span> Advanced search</button>
+    <h2>Tasks</h2>
+    <button ng-click="showCheckboxes = ! showCheckboxes; showSearch = false" type="button" class="btn btn-dark"><span id="btnicon" class="glyphicon" ng-class="{ 'glyphicon-plus': !showCheckboxes, 'glyphicon-minus': showCheckboxes }" aria-hidden="true"></span> Column choice</button>
+    <button ng-click="showSearch = ! showSearch; showCheckboxes = false" type="button" class="btn btn-dark"><span id="btnicon" class="glyphicon" ng-class="{ 'glyphicon-plus': !showSearch, 'glyphicon-minus': showSearch }" aria-hidden="true"></span> Advanced search</button>
     <form ng-show="showCheckboxes" id="columnform">
         <br>
-        <h3>Issues</h3>
-        <div class="col-md-2">
-            <label class="checkbox-inline">
-                <input ng-model="showIssue" type="checkbox" value="option1"> Name
-            </label>
+        <h3>Columns</h3>
+        <div class="row">
+            <div class="col-md-2" ng-repeat="data in filters">
+                <label class="checkbox-inline">
+                    <input ng-model="columns[data.name]" type="checkbox"> {{data.name}}
+                </label>
+            </div>
         </div>
-        <div class="col-md-2">
-            <label class="checkbox-inline">
-                <input ng-model="showLocation" type="checkbox"> Location
-            </label>
+        <div class="row">
+            <div class="col-md-12">
+                <br>
+                <button ng-click="saveCookie()" type="button" class="btn btn-default"><span id="btnicon" class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save</button>
+            </div>
         </div>
-        <div class="col-md-2">
-            <label class="checkbox-inline">
-                <input ng-model="showPriority" type="checkbox"> Priority
-            </label>
+        <div class="row">
+            <div class="col-md-12"><hr></div>
         </div>
-        <div class="col-xs-12"><hr></div>
-        <div class="col-xs-12"><h3>Employee</h3></div>
-        <div class="col-md-2">
-            <label class="checkbox-inline">
-                <input ng-model="showEmployee" type="checkbox"> Name
-            </label>
-        </div>
-        <div class="col-md-2">
-            <label class="checkbox-inline">
-                <input ng-model="showJob" type="checkbox"> Job
-            </label>
-        </div>
-        <div class="col-md-2">
-            <label class="checkbox-inline">
-                <input ng-model="showCompany" type="checkbox"> Company
-            </label>
-        </div>
-        <div class="col-xs-12">
-            <br>
-            <button ng-click="saveCookie()" type="button" class="btn btn-default"><span id="btnicon" class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save</button>
-        </div>
-        <div class="col-xs-12"><hr></div>
     </form>
     <form ng-show="showSearch" id="searchform">
-        <div class="col-xs-12"><br></div>
-        <div class="form-group col-md-4" ng-repeat="data in filters">
-            <label for="{{data.name}}">{{data.name}}</label>
-            <input ng-model="filter" type="text" class="form-control" id="{{data.name}}" placeholder="{{data.name}}" name="{{data.name}}">
+        <br />
+        <div class="row">
+            <div class="form-group col-md-4" ng-repeat="data in filters">
+                <label for="{{data.name}}">{{data.name}}</label>
+                <input ng-model="filter" type="text" class="form-control" id="{{data.name}}" placeholder="{{data.name}}" name="{{data.name}}">
+            </div>
         </div>
-        <div class="col-xs-12">
-            <br>
-            <button ng-click="searchIssue()" type="button" class="btn btn-default"><span id="btnicon" class="glyphicon glyphicon-search" aria-hidden="true"></span> Search</button>
-            <button ng-click="emptySearch()" type="button" class="btn btn-link nocolor"><span id="btnicon" class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-            <br>
+        <div class="row">
+            <div class="col-xs-12">
+                <br>
+                <button ng-click="searchIssue()" type="button" class="btn btn-default"><span id="btnicon" class="glyphicon glyphicon-search" aria-hidden="true"></span> Search</button>
+                <button ng-click="emptySearch()" type="button" class="btn btn-link nocolor"><span id="btnicon" class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <br>
+            </div>
         </div>
-        <div class="col-xs-12"><br></div>
-    </form>
+</form>
     <div class="form-group searchinput">
         <div class="col-xs-7">
             <span class="searchicon">
@@ -76,23 +58,23 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th ng-show="showIssue" ng-click="reverse=!reverse;order('task', reverse)" style="cursor: pointer"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span> Task</th>
-                <th ng-show="showLocation" ng-click="reverse=!reverse;order('location', reverse)" style="cursor: pointer"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span> Location</th>
+                <th style="cursor: pointer" ng-repeat="(key, value) in columns" ng-show="value"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span> {{key}}</th>
+                <!--<th ng-show="showLocation" ng-click="reverse=!reverse;order('location', reverse)" style="cursor: pointer"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span> Location</th>
                 <th ng-show="showPriority" ng-click="reverse=!reverse;order('priority', reverse)" style="cursor: pointer"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span> Priority</th>
                 <th ng-show="showEmployee" ng-click="reverse=!reverse;order('name', reverse)" style="cursor: pointer"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span> Agent</th>
                 <th ng-show="showJob" ng-click="reverse=!reverse;order('job', reverse)" style="cursor: pointer"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span> Job</th>
-                <th ng-show="showCompany" ng-click="reverse=!reverse;order('company', reverse)" style="cursor: pointer"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span> Company</th>
+                <th ng-show="showCompany" ng-click="reverse=!reverse;order('company', reverse)" style="cursor: pointer"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span> Company</th>-->
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="data in issues">
-                <td ng-show="showIssue" style="vertical-align: middle;">{{data.task}}</td>
-                <td ng-show="showLocation" style="vertical-align: middle;">{{data.location}}</td>
+                <td style="vertical-align: middle;" ng-repeat="(key, value) in data" ng-show="columns[key]">{{value}}</td>
+                <!--<td ng-show="showLocation" style="vertical-align: middle;">{{data.location}}</td>
                 <td ng-show="showPriority" style="vertical-align: middle;">{{data.priority}}</td>
                 <td ng-show="showEmployee" style="vertical-align: middle;">{{data.name}}</td>
                 <td ng-show="showJob" style="vertical-align: middle;">{{data.job}}</td>
-                <td ng-show="showCompany" style="vertical-align: middle;">{{data.company}}</td>
+                <td ng-show="showCompany" style="vertical-align: middle;">{{data.company}}</td>-->
                 <td style="vertical-align: middle;"><a data-toggle="modal" data-target="#myModal" ng-click="openEdit(data.id)" class="btn">&nbsp;<i class="glyphicon glyphicon-edit"></i>&nbsp; Edit</a></td>
             </tr>
         </tbody>

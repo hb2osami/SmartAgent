@@ -1,5 +1,7 @@
 ﻿app.controller('HomeController', function ($scope, services, $filter, $cookieStore, $timeout) {
 
+    $scope.columns = {};
+
     $scope.alertOK = false;
     $scope.success = false;
     $scope.failure = false;
@@ -41,6 +43,9 @@
     });
     services.getFilters().then(function (data) {
         $scope.filters = data.data;
+        for (i = 0; i < $scope.filters.length; i++) {
+            $scope.columns[$scope.filters[i]['name']] = true;
+        }
     });
     /*
     $scope.$watch("currentPage + numPerPage", function () {
