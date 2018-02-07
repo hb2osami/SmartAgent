@@ -67,15 +67,6 @@ namespace SmartAgent.WcfService
         [WebGet(UriTemplate = "/Tasks/Filters")]
         List<Filter> GetTasksFilters();
 
-
-        //[WebGet(UriTemplate = "/Tasks/filters")]
-        //Filter[] GetTaskFilters(string id);
-
-
-        //[OperationContract]
-        //[WebInvoke(Method = "POST", UriTemplate = "/AddAgent/{fName}/{lName}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        //void AddAgent(string fName,string lName);
-
         [OperationContract]
         [WebInvoke(Method = "POST", UriTemplate = "/Agents/", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         int AddAgent(AgentDTO ag );
