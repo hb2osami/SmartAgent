@@ -1,0 +1,70 @@
+﻿<div ng-controller="ReportController">
+    <h2>Report an issue</h2>
+    <form enctype="multipart/form-data" action="index.php" method="post">
+        <br><br>
+        <div class="row">
+            <div class="form-group col-md-4" ng-class="{'has-success': !isUndefinedOrNull(name), 'has-error': isUndefinedOrNull(name)}">
+                <label class="control-label" for="name">Name</label>
+                <input ng-model="name" required type="text" class="form-control" id="name" placeholder="Name" name="name">
+                <span class="glyphicon form-control-feedback smallgly" ng-class="{'glyphicon-ok': !isUndefinedOrNull(name), 'glyphicon-asterisk': isUndefinedOrNull(name)}" aria-hidden="true"></span>
+            </div>
+            <div class="form-group col-md-4" ng-class="{'has-success': !isUndefinedOrNull(gender), 'has-error': isUndefinedOrNull(gender)}">
+                <label class="control-label" for="gender">Location</label>
+                <select ng-model="gender" required class="form-control" id="gender" name="gender">
+                    <option disabled selected value>Location</option>
+                </select>
+                <span class="glyphicon form-control-feedback smallgly" ng-class="{'glyphicon-ok': !isUndefinedOrNull(gender), 'glyphicon-asterisk': isUndefinedOrNull(gender)}" aria-hidden="true"></span>
+            </div>
+            <div class="form-group col-md-4" ng-class="{'has-success': !isUndefinedOrNull(speciality), 'has-error': isUndefinedOrNull(speciality)}">
+                <label class="control-label" for="speciality">Priority</label>
+                <select ng-model="speciality" required class="form-control" id="speciality" name="speciality">
+                    <option disabled selected value>Priority</option>
+                    <option value="1">1</option>
+                    <option value="1">2</option>
+                    <option value="1">3</option>
+                </select>
+                <span class="glyphicon form-control-feedback smallgly" ng-class="{'glyphicon-ok': !isUndefinedOrNull(speciality), 'glyphicon-asterisk': isUndefinedOrNull(speciality)}" aria-hidden="true"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label for="entreprise">Agent</label>
+                <select class="form-control" id="agent" name="agent">
+                    <option disabled selected value>Agent</option>
+                    <option ng-repeat="data in agents" value="{{data.id}}">{{data.prenom}} {{data.nom}}</option>
+                </select>
+            </div>
+            <div class="form-group col-md-8" style="padding-top: 25px;">
+                <button ng-click="showNewCompany = ! showNewCompany" type="button" class="btn btn-dark"><span id="btnicon" class="glyphicon glyphicon-plus" aria-hidden="true"></span> New assignee</button>
+                <div ng-show="showNewCompany" id="newEntreprise" class="somemargin">
+                    <div class="form-group col-md-4">
+                        <label for="nameentreprise">Lastname</label>
+                        <input type="text" class="form-control" id="nameentreprise" placeholder="Lastname" name="nameentreprise">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="addressentreprise">Firstname</label>
+                        <input type="text" class="form-control" id="addressentreprise" placeholder="Firstname" name="addressentreprise">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="countryentreprise">Company</label>
+                        <select class="form-control" id="countryentreprise" name="countryentreprise">
+                            <option disabled selected value>Company</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="empty">&nbsp;</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-success btn-lg">Valider</button>
+                <a href="/" class="btn btn-danger btn-sm">Annuler</a>
+            </div>
+        </div>
+            
+            
+            
+</form>
+</div>

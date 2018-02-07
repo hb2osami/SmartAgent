@@ -1,0 +1,291 @@
+﻿html,
+body {
+    height: 100%;
+    /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+    min-height: 100%;
+    height: auto;
+    /* Negative indent footer by its height */
+    margin: 0 auto -60px;
+    /* Pad bottom by footer height */
+    padding: 0 0 60px;
+}
+
+#myModalWidth {
+    width: 80%;
+}
+
+.topalert {
+    position: fixed;
+    top: 60px;
+    right: 10px;
+    width: 30%;
+    z-index: 0;
+}
+
+.searchinput {
+    margin-top: 20px;
+}
+
+.sociallink {
+    font-size: 19px;
+}
+
+.nocolor {
+    color: #333;
+}
+
+.smallgly {
+    font-size: 11px;
+}
+
+.footer {
+    position: absolute;
+    margin-top: 10px;
+    width: 100%;
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+.containerfooter {
+    padding-right: 15px;
+    padding-left: 90px;
+}
+
+    .containerfooter .text-muted {
+        margin: 20px 0;
+    }
+
+.text-muted {
+    color: #777;
+}
+
+.pic {
+    height: 50px;
+}
+
+h2 {
+    text-align: center;
+}
+
+.customicon {
+    font-size: 32px;
+}
+
+.floatright {
+    float: right;
+}
+
+.tablerow {
+    vertical-align: middle;
+}
+
+.searchicon input {
+    padding-left: 25px;
+    background-color: rgba(0,0,0,0) !important;
+    border: none !important;
+}
+
+.searchicon:before {
+    height: 100%;
+    width: 25px;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    position: absolute;
+    content: "\e003";
+    font-family: 'Glyphicons Halflings';
+    pointer-events: none;
+}
+
+.logo {
+    height: 40px;
+    margin-top: 5px;
+}
+
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+    .form-signin .form-signin-heading,
+    .form-signin .checkbox {
+        margin-bottom: 10px;
+    }
+
+    .form-signin .checkbox {
+        font-weight: normal;
+    }
+
+    .form-signin .form-control {
+        position: relative;
+        height: auto;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+
+    .form-signin input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+.badge {
+    background-color: #a94442;
+}
+
+.textdanger {
+    color: #a94442;
+}
+
+.btn-dark {
+    color: #fff;
+    background-color: #8A8A8A;
+    border-color: #525252;
+}
+
+.btn-darklight {
+    color: #fff;
+    background-color: #ADACAC;
+    border-color: #ccc;
+}
+
+.inputform {
+    display: none;
+}
+
+.btnaddcompany {
+    margin-top: 25px;
+}
+
+.newEntreprise {
+    display: none;
+}
+
+.somemargin {
+    margin-top: 10px;
+}
+
+input[type="checkbox"].ios-switch {
+    position: absolute;
+    opacity: 0;
+}
+
+    /* Normal Track */
+    input[type="checkbox"].ios-switch + div {
+        vertical-align: middle;
+        width: 40px;
+        height: 20px;
+        border: 1px solid rgba(0,0,0,.4);
+        border-radius: 999px;
+        background-color: rgba(0, 0, 0, 0.1);
+        -webkit-transition-duration: .4s;
+        -webkit-transition-property: background-color, box-shadow;
+        box-shadow: inset 0 0 0 0px rgba(0,0,0,0.4);
+        /*margin: 15px 1.2em 15px 2.5em;*/
+    }
+
+    /* Checked Track (Blue) */
+    input[type="checkbox"].ios-switch:checked + div {
+        width: 40px;
+        background-position: 0 0;
+        background-color: #3b89ec;
+        border: 1px solid #0e62cd;
+        box-shadow: inset 0 0 0 10px rgba(59,137,259,1);
+    }
+
+/* Tiny Track */
+input[type="checkbox"].tinyswitch.ios-switch + div {
+    width: 34px;
+    height: 18px;
+}
+
+/* Big Track */
+input[type="checkbox"].bigswitch.ios-switch + div {
+    width: 50px;
+    height: 25px;
+}
+
+/* Green Track */
+input[type="checkbox"].green.ios-switch:checked + div {
+    background-color: #00e359;
+    border: 1px solid rgba(0, 162, 63,1);
+    box-shadow: inset 0 0 0 10px rgba(0,227,89,1);
+}
+
+/* Normal Knob */
+input[type="checkbox"].ios-switch + div > div {
+    float: left;
+    width: 18px;
+    height: 18px;
+    border-radius: inherit;
+    background: #ffffff;
+    -webkit-transition-timing-function: cubic-bezier(.54,1.85,.5,1);
+    -webkit-transition-duration: 0.4s;
+    -webkit-transition-property: transform, background-color, box-shadow;
+    -moz-transition-timing-function: cubic-bezier(.54,1.85,.5,1);
+    -moz-transition-duration: 0.4s;
+    -moz-transition-property: transform, background-color;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0px 0px 0 1px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    margin-top: 1px;
+    margin-left: 1px;
+}
+
+/* Checked Knob (Blue Style) */
+input[type="checkbox"].ios-switch:checked + div > div {
+    -webkit-transform: translate3d(20px, 0, 0);
+    -moz-transform: translate3d(20px, 0, 0);
+    background-color: #ffffff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0px 0px 0 1px rgba(8, 80, 172,1);
+}
+
+/* Tiny Knob */
+input[type="checkbox"].tinyswitch.ios-switch + div > div {
+    width: 16px;
+    height: 16px;
+    margin-top: 1px;
+}
+
+/* Checked Tiny Knob (Blue Style) */
+input[type="checkbox"].tinyswitch.ios-switch:checked + div > div {
+    -webkit-transform: translate3d(16px, 0, 0);
+    -moz-transform: translate3d(16px, 0, 0);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0px 0px 0 1px rgba(8, 80, 172,1);
+}
+
+/* Big Knob */
+input[type="checkbox"].bigswitch.ios-switch + div > div {
+    width: 23px;
+    height: 23px;
+    margin-top: 1px;
+}
+
+/* Checked Big Knob (Blue Style) */
+input[type="checkbox"].bigswitch.ios-switch:checked + div > div {
+    -webkit-transform: translate3d(25px, 0, 0);
+    -moz-transform: translate3d(16px, 0, 0);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3), 0px 0px 0 1px rgba(8, 80, 172,1);
+}
+
+/* Green Knob */
+input[type="checkbox"].green.ios-switch:checked + div > div {
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 162, 63,1);
+}
