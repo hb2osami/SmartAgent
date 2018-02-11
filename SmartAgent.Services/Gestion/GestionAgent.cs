@@ -35,9 +35,13 @@ namespace SmartAgent.Services.Gestion
             };
 
 
-            Model.Task ta = new Model.Task { Label = "reseaux", Location = "Paris" };
-            Model.Task tb = new Model.Task { Label = "plomberie", Location = "rennes" };
-            Model.Task tc = new Model.Task { Label = "menage", Location = "caen" };
+            
+            Model.Task[] tasks = {
+                new Model.Task{ Author = agents[4], Label = "Reseaux", Location="rennes",Priority="high"},
+                new Model.Task{ Author = agents[1], Label = "climatisation", Location="Caen",Priority="low"},
+                new Model.Task{ Author = agents[2], Label = "Plomberie" ,Location="Paris",Priority="Medium"},
+
+             };
 
             //agents[4].ReportedTasks.Add(ta);
             //agents[3].ReportedTasks.Add(tb);
@@ -48,6 +52,7 @@ namespace SmartAgent.Services.Gestion
                 foreach (Model.Agent agent in agents) {
                     context.Agents.Add(agent);
                 }
+                context.Tasks.AddRange(tasks);
                 context.SaveChanges();
             }
 

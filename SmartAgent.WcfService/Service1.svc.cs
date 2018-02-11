@@ -10,6 +10,8 @@ using SmartAgent.Services.Gestion;
 using SmartAgent.Services.DTO;
 using SmartAgent.WcfService.filters;
 using SmartAgent.Services.Pagination;
+using System.Collections.Specialized;
+using System.Net;
 
 namespace SmartAgent.WcfService
 {
@@ -146,5 +148,48 @@ namespace SmartAgent.WcfService
         {
             return ga.GetAgentsSorted(sort);
         }
+
+        //public TacheDTO[] GetTasksbis(string offset, string limit, string sort,string dir, string searchG)
+        //{
+        //    string[] lst = WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters.AllKeys();
+        //    return gt.GetTasksbis(int.Parse(offset), int.Parse(limit), sort, int.Parse(dir), searchG);
+        //}
+        public TacheDTO[] GetTasksbis()
+        {
+            // Request Parameters
+            UriTemplateMatch tmp = WebOperationContext.Current.IncomingRequest.UriTemplateMatch;
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            NameValueCollection query = tmp.QueryParameters;
+            //Response Parameters
+            WebOperationContext ctx = WebOperationContext.Current;
+           
+            if (!query.AllKeys.Contains("offset") || !query.AllKeys.Contains("limit")) {
+                throw new WebFaultException<string>("Bar wasn't Foo'd", HttpStatusCode.BadRequest);
+            }
+            if (query.AllKeys.Contains("sort") || !query.AllKeys.Contains("dir"))
+            {
+                ctx.OutgoingResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+            }
+            int offset = int.Parse(tmp.QueryParameters["offset"]);
+            int limit = int.Parse(tmp.QueryParameters["limit"]);
+            string sort = tmp.QueryParameters["sort"];
+            int dir = int.Parse(tmp.QueryParameters["dir"]);
+            string searchG = tmp.QueryParameters["searchG"];
+
+
+
+            
+
+
+            List<Filter> filters = gf.GetTasksFilters();
+            foreach(Filter f in filters) {
+                if (query.AllKeys.Contains(f.name)) {
+                    dictionary.Add(f.name, query[f.name]);
+                }
+            } 
+            return gt.GetTasksbis(offset, limit, sort, dir, searchG, dictionary);
+        }
+
+
+        }
     }
-}

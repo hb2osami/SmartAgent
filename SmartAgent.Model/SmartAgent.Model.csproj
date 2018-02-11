@@ -72,6 +72,7 @@
       <DependentUpon>201801101032528_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Partial\MyDatabaseInitializer.cs" />
     <Compile Include="Partial\SmartAgentDbEntities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SmartAgentModel.Context.cs">
@@ -94,7 +95,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <EntityDeploy Include="SmartAgentModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -111,6 +114,7 @@
       <LastGenOutput>SmartAgentModel.Context.cs</LastGenOutput>
       <DependentUpon>SmartAgentModel.edmx</DependentUpon>
     </Content>
+    <Content Include="SmartAgentModel.edmx.sql" />
     <Content Include="SmartAgentModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SmartAgentModel.edmx</DependentUpon>

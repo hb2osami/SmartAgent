@@ -26,26 +26,28 @@ namespace SmartAgent.Model.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            Agent[] agents = { new Model.Agent() { FirstName = "Francois", LastName = "Ali", BirthDate = DateTime.Now },
-                            new Model.Agent() { FirstName = "Toto", LastName = "Titi", BirthDate = DateTime.Now },
-                            new Model.Agent() { FirstName = "Tata", LastName = "tutu", BirthDate = DateTime.Now },
-                            new Model.Agent() { FirstName = "Laurent", LastName = "Lolo", BirthDate = DateTime.Now },
-                            new Model.Agent() { FirstName = "Amandine", LastName = "toto", BirthDate = DateTime.Now },
-                            new Model.Agent() { FirstName = "Maceo", LastName = "Plex", BirthDate = DateTime.Now }
+            Agent[] agents = { new Model.Agent() { FirstName = "Francois", LastName = "dumeige", Company ="ass" ,Job ="technicien",BirthDate = DateTime.Now },
+                            new Model.Agent() { FirstName = "Eric", LastName = "dupont", Company ="a2II" ,Job ="technicien de surface", BirthDate = DateTime.Now },
+                            new Model.Agent() { FirstName = "Nastia", LastName = "pellet", Company ="cst" ,Job ="ingénieur", BirthDate = DateTime.Now },
+                            new Model.Agent() { FirstName = "Laurent", LastName = "Brod",  Company ="alp" ,Job ="plombier",BirthDate = DateTime.Now },
+                            new Model.Agent() { FirstName = "Amandine", LastName = "Lee", Company ="cst" ,Job ="technicien reseau", BirthDate = DateTime.Now },
+                            new Model.Agent() { FirstName = "Maceo", LastName = "Plex",  Company ="tpa" ,Job ="technicien cablage", BirthDate = DateTime.Now }
             };
+
+
+
+            Model.Task[] tasks = {
+                new Model.Task{ Author = agents[4], Label = "Reseaux", Location="rennes",Priority="high"},
+                new Model.Task{ Author = agents[1], Label = "climatisation", Location="Caen",Priority="low"},
+                new Model.Task{ Author = agents[2], Label = "Plomberie" ,Location="Paris",Priority="Medium"},
+
+             };
 
             context.Agents.AddOrUpdate(
                 a => a.LastName,
                             agents
 
-                );
-            Model.Task[] tasks = {
-                new Model.Task{ Author = agents[4], Label = "Reseaux"},
-                new Model.Task{ Author = agents[1], Label = "climatisation"},
-                new Model.Task{ Author = agents[2], Label = "Plomberie"},
-    
-             };
-          
+                );          
             context.Tasks.AddOrUpdate(
                 t=>t.Label,
                 tasks

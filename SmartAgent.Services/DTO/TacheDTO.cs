@@ -15,7 +15,7 @@ namespace SmartAgent.Services.DTO
         [DataMember]
         public int id { get; set; }
         [DataMember]
-        public string task { get; set; }
+        public string label { get; set; }
         [DataMember]
         public string location { get; set; }
         [DataMember]
@@ -33,7 +33,7 @@ namespace SmartAgent.Services.DTO
         public TacheDTO(Model.Task t)
         {
             id = t.Id;
-            task = t.Label;
+            label = t.Label;
             location = t.Location;
             priority = t.Priority;
             job =t.Author.Job;
