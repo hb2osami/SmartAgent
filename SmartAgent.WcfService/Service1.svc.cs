@@ -136,24 +136,41 @@ namespace SmartAgent.WcfService
         public List<Filter> GetTasksFilters()
         {
             return gf.GetTasksFilters();
-        } 
-        public AgentsPag GetAgentsPag(string sizePage, string skip)
-        {
-            AgentsPag agents = ga.GetAgents(int.Parse(sizePage), int.Parse(skip));
-
-            return agents;
-
-        }
-        public AgentDTO[] GetAgentsSorted(string sort)
-        {
-            return ga.GetAgentsSorted(sort);
         }
 
-        //public TacheDTO[] GetTasksbis(string offset, string limit, string sort,string dir, string searchG)
-        //{
-        //    string[] lst = WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters.AllKeys();
-        //    return gt.GetTasksbis(int.Parse(offset), int.Parse(limit), sort, int.Parse(dir), searchG);
-        //}
+        public AgentDTO[] GetAgentsBis()
+        {
+            UriTemplateMatch tmp = WebOperationContext.Current.IncomingRequest.UriTemplateMatch;
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            NameValueCollection query = tmp.QueryParameters;
+            //Response Parameters
+            WebOperationContext ctx = WebOperationContext.Current;
+            //if (!query.AllKeys.Contains("offset") || !query.AllKeys.Contains("limit"))
+            //{
+            //    throw new WebFaultException<string>("Bad request", HttpStatusCode.BadRequest);
+            //}
+            
+            int dir = 0;
+            int offset = 0;
+            int limit = 20;
+            if (query.AllKeys.Contains("dir")) dir = int.Parse(tmp.QueryParameters["dir"]);
+            if (query.AllKeys.Contains("limit")) limit = int.Parse(tmp.QueryParameters["limit"]);
+            if (query.AllKeys.Contains("offset")) offset = int.Parse(tmp.QueryParameters["offset"]);
+
+            string sort = tmp.QueryParameters["sort"];
+            string searchG = tmp.QueryParameters["searchG"];
+
+            List<Filter> filters = gf.GetAgentsFilters();
+            foreach (Filter f in filters)
+            {
+                if (query.AllKeys.Contains(f.name))
+                {
+                    dictionary.Add(f.name, query[f.name]);
+                }
+            }
+            return ga.GetAgentsbis(offset, limit, sort, dir, searchG, dictionary);
+        }
+ 
         public TacheDTO[] GetTasksbis()
         {
             // Request Parameters
@@ -162,24 +179,17 @@ namespace SmartAgent.WcfService
             NameValueCollection query = tmp.QueryParameters;
             //Response Parameters
             WebOperationContext ctx = WebOperationContext.Current;
-           
-            if (!query.AllKeys.Contains("offset") || !query.AllKeys.Contains("limit")) {
-                throw new WebFaultException<string>("Bar wasn't Foo'd", HttpStatusCode.BadRequest);
-            }
-            if (query.AllKeys.Contains("sort") || !query.AllKeys.Contains("dir"))
-            {
-                ctx.OutgoingResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
-            }
-            int offset = int.Parse(tmp.QueryParameters["offset"]);
-            int limit = int.Parse(tmp.QueryParameters["limit"]);
-            string sort = tmp.QueryParameters["sort"];
-            int dir = int.Parse(tmp.QueryParameters["dir"]);
-            string searchG = tmp.QueryParameters["searchG"];
 
-
+            int dir = 0;
+            int offset = 0;
+            int limit = 20;
+            if (query.AllKeys.Contains("dir")) dir = int.Parse(tmp.QueryParameters["dir"]);
+            if (query.AllKeys.Contains("limit")) limit = int.Parse(tmp.QueryParameters["limit"]);
+            if (query.AllKeys.Contains("offset")) offset = int.Parse(tmp.QueryParameters["offset"]);
 
             
-
+            string sort = tmp.QueryParameters["sort"];
+            string searchG = tmp.QueryParameters["searchG"];
 
             List<Filter> filters = gf.GetTasksFilters();
             foreach(Filter f in filters) {
@@ -188,8 +198,6 @@ namespace SmartAgent.WcfService
                 }
             } 
             return gt.GetTasksbis(offset, limit, sort, dir, searchG, dictionary);
-        }
-
-
-        }
+        }   
+    }
     }

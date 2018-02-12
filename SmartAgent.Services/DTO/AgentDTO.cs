@@ -12,26 +12,24 @@ namespace SmartAgent.Services.DTO
     public class AgentDTO
     {
         [DataMember]
-        public string nom { get; set; }
+        public string LastName { get; set; }
         [DataMember]
-        public string prenom { get; set; }
+        public string FirstName { get; set; }
         [DataMember]
         public int id { get; set; }
         [DataMember]
         public string job { get; set; }
         [DataMember]
         public string company { get; set; }
-        //[DataMember]
-        //public TacheDTO[] tasks { get; set; }
 
         public AgentDTO(Agent ag)
         {
-            nom = ag.LastName;
-            prenom = ag.FirstName;
+            LastName = ag.LastName;
+            FirstName = ag.FirstName;
             id = ag.Id;
             job = ag.Job;
             company = ag.Company;
-           // tasks = ag.ReportedTasks.ToArray().Select(a => new TacheDTO(a)).ToArray();
+
         }
 
         

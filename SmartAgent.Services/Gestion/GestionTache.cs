@@ -36,6 +36,7 @@ namespace SmartAgent.Services.Gestion
             {
                 
                 var result = context.Tasks.AsQueryable();
+                string where = "";
                 foreach (KeyValuePair<string, string> entry in dic)
                 {
                     if (entry.Key.ToLower() == "location") {

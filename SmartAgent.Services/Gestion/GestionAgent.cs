@@ -82,15 +82,7 @@ namespace SmartAgent.Services.Gestion
                 return agents;
             }
         }
-        public Agent[] test(String nom)
-        {
-            using (var context = new Model.SmartAgentDbEntities())
-            {
-                Agent[] agents = context.Agents.Where(a => a.FirstName.Contains(nom)).ToArray();
-                return agents;
 
-            }
-        }
         public DTO.AgentDTO[] GetAgents()
         {
             using (var context = new Model.SmartAgentDbEntities())
@@ -122,7 +114,50 @@ namespace SmartAgent.Services.Gestion
                 return agts;
             }
         }
+        public AgentDTO[] GetAgentsbis(int offset, int limit, string sort, int dir, string searchG, Dictionary<string, string> dic) {
+            Boolean order = true;
+            if (dir == 0) order = false;
 
+            using (var context = new Model.SmartAgentDbEntities())
+            {
+                var result = context.Agents.AsQueryable();
+                foreach (KeyValuePair<string, string> entry in dic)
+                {
+                    if (entry.Key.ToLower() == "firstname")
+                    {
+                        result = result.Where(x => x.FirstName == entry.Value);
+                    }
+                    if (entry.Key.ToLower() == "lastname")
+                    {
+                        result = result.Where(x => x.LastName == entry.Value);
+                    }
+                    if (entry.Key == "job")
+                    {
+                        result = result.Where(x => x.Job == entry.Value);
+                    }
+                    if (entry.Key == "company")
+                    {
+                        result = result.Where(x => x.Company == entry.Value);
+                    }
+                }
+                if (!string.IsNullOrEmpty(searchG))
+                {
+                    result = result.Where(x => x.FirstName.Contains(searchG) || x.LastName.Contains(searchG) || x.Job.Contains(searchG) || x.Company.Contains(searchG));
+                }
+
+                if (!string.IsNullOrEmpty(sort))
+                {
+
+                    result.OrderBy(sort, order);
+                }
+
+                // Pagination
+                AgentDTO[] agents = result.ToArray().Select(a => new AgentDTO(a)).Skip(offset).Take(limit).ToArray();
+                return agents;
+
+            }
+
+        }
 
         public int AddAgent(String nom, String prenom, DateTime date)
         {
@@ -138,7 +173,7 @@ namespace SmartAgent.Services.Gestion
         public int AddAgent(AgentDTO ag)
         {
             int retour;
-            Agent agent = new Model.Agent() { FirstName = ag.prenom, LastName = ag.nom, BirthDate = DateTime.Now ,Company=ag.company ,Job = ag.job };
+            Agent agent = new Model.Agent() { FirstName = ag.FirstName, LastName = ag.LastName, BirthDate = DateTime.Now ,Company=ag.company ,Job = ag.job };
             using (var context = new Model.SmartAgentDbEntities())
             { 
                 context.Agents.Add(agent);
@@ -153,8 +188,8 @@ namespace SmartAgent.Services.Gestion
             {
                 Agent agent = context.Agents.Find(ag.id);
                 if (agent == null) return 0;
-                agent.FirstName = ag.prenom;
-                agent.LastName = ag.nom;
+                agent.FirstName = ag.FirstName;
+                agent.LastName = ag.LastName;
                 agent.Job = ag.job;
                 context.SaveChanges();
                 return 1;   

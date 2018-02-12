@@ -39,13 +39,12 @@ namespace SmartAgent.WcfService
         AgentDTO[] GetAgents();
 
         [OperationContract]
-        [WebGet(UriTemplate = "/Agents?sort={sort}")]
-        AgentDTO[] GetAgentsSorted(string sort);
+        [WebGet(UriTemplate = "/Agents/?")]
+        AgentDTO[] GetAgentsBis();
 
 
-        [OperationContract]
-        [WebGet(UriTemplate = "/Agents/?size={size}&skip={skip}")]
-        AgentsPag GetAgentsPag(string size, string skip);
+
+
 
         [OperationContract]
         [WebGet(UriTemplate = "/Agents/{idA}")]
@@ -63,14 +62,6 @@ namespace SmartAgent.WcfService
         [WebGet(UriTemplate = "/Tasks/{id}")]
         TacheDTO GetTask(string id);
 
-
-        //[OperationContract]
-        //[WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, UriTemplate = "get/{filename}?param1={param1}")]
-
-
-        //[WebGet(UriTemplate = "/Tasks/?offset={offset}&limit={limit}&sort={sort}&dir={dir}&searchG={searchG}")]
-
-        //TacheDTO[] GetTasksbis(string offset, string limit, string sort,string dir, string searchG);
 
         [OperationContract]
         [WebGet(UriTemplate = "/Tasks/?")]
@@ -93,7 +84,7 @@ namespace SmartAgent.WcfService
         int UpdateAgent(AgentDTO ag);
 
         [OperationContract]
-        [WebInvoke(Method = "PUT", UriTemplate = "/Tasks/update/", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "PUT", UriTemplate = "/Tasks/", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         int UpdateTask(TacheDTO  task);
 
         [OperationContract]
