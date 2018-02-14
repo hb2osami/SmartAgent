@@ -24,7 +24,7 @@
             <div class="form-group col-md-4" ng-class="{'has-success': !isUndefinedOrNull(priority), 'has-error': isUndefinedOrNull(priority)}">
                 <label class="control-label" for="speciality">Priority</label>
                 <select ng-model="priority" required class="form-control" id="priority" name="priority">
-                    <option disabled selected value>Priority</option>
+                    <option disabled selected value="">Priority</option>
                     <option value="high">High</option>
                     <option value="medium">Medium</option>
                     <option value="low">Low</option>
@@ -36,8 +36,8 @@
             <div class="form-group col-md-4">
                 <label for="entreprise">Agent</label>
                 <select ng-model="agent" class="form-control" id="agent" name="agent">
-                    <option disabled selected value>Agent</option>
-                    <option ng-repeat="data in agents" value="{{data.id}}">{{data.prenom}} {{data.nom}}</option>
+                    <option disabled selected value="">Agent</option>
+                    <option ng-repeat="data in agents" value="{{data.id}}">{{data.FirstName}} {{data.LastName}}</option>
                 </select>
             </div>
             <div class="form-group col-md-8" style="padding-top: 25px;">
@@ -54,7 +54,7 @@
                     <div class="form-group col-md-4">
                         <label for="countryentreprise">Company</label>
                         <select class="form-control" id="countryentreprise" name="countryentreprise">
-                            <option disabled selected value>Company</option>
+                            <option disabled selected value="">Company</option>
                         </select>
                     </div>
                     <div class="form-group col-md-4">

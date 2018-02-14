@@ -7,7 +7,7 @@
     $scope.failure = false;
 
     $scope.currentPage = 1;
-    $scope.numPerPage = 2;
+    $scope.numPerPage = 10;
     $scope.maxSize = 5;
     $scope.totalItems = 3;
     $scope.sort = 'label';
@@ -17,7 +17,8 @@
     $scope.showSearch = false;
 
     services.getIssues(0, 25, 'id', 1, '').then(function (data) {
-        $scope.issues = data.data;
+        $scope.issues = data.data.tasks;
+        $scope.totalItems = data.data.total;
     });
     services.getFilters().then(function (data) {
         $scope.filters = data.data;
@@ -33,11 +34,12 @@
     });
     
     $scope.$watch("currentPage + numPerPage", function () {
-        var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+        var begin = ($scope.currentPage - 1) * $scope.numPerPage
             , end = $scope.numPerPage;
 
         services.getIssues(begin, end, $scope.sort, $scope.dir, '').then(function (data) {
-            $scope.issues = data.data;
+            $scope.issues = data.data.tasks;
+            $scope.totalItems = data.data.total;
         });
     });
 
@@ -50,7 +52,8 @@
         if (reverse === true) dir = 0;
 
         services.getIssues(begin, end, predicate, dir, '').then(function (data) {
-            $scope.issues = data.data;
+            $scope.issues = data.data.tasks;
+            $scope.totalItems = data.data.total;
         });
         $scope.sort = predicate;
         $scope.dir = dir;
@@ -82,7 +85,8 @@
         var begin = ($scope.currentPage - 1) * $scope.numPerPage
             , end = $scope.numPerPage;
         services.getIssues(begin, end, $scope.sort, $scope.dir, searchStr).then(function (data) {
-            $scope.issues = data.data;
+            $scope.issues = data.data.tasks;
+            $scope.totalItems = data.data.total;
         });
     };
 
@@ -94,8 +98,9 @@
             $scope.filters[i]['value'] = '';
         }
 
-        services.getIssues(begin, end, $scope.sort, $scope.dir).then(function (data) {
-            $scope.issues = data.data;
+        services.getIssues(begin, end, $scope.sort, $scope.dir, '').then(function (data) {
+            $scope.issues = data.data.tasks;
+            $scope.totalItems = data.data.total;
         });
     };
 
@@ -106,7 +111,8 @@
         var searchStr = '&searchG=' + $scope.search;
 
         services.getIssues(begin, end, $scope.sort, $scope.dir, searchStr).then(function (data) {
-            $scope.issues = data.data;
+            $scope.issues = data.data.tasks;
+            $scope.totalItems = data.data.total;
         });
     };
 
