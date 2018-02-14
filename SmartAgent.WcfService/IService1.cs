@@ -40,7 +40,7 @@ namespace SmartAgent.WcfService
 
         [OperationContract]
         [WebGet(UriTemplate = "/Agents/?")]
-        AgentDTO[] GetAgentsBis();
+        AgentsPag GetAgentsBis();
 
 
 
@@ -65,7 +65,7 @@ namespace SmartAgent.WcfService
 
         [OperationContract]
         [WebGet(UriTemplate = "/Tasks/?")]
-        TacheDTO[] GetTasksbis();
+        TachesPag GetTasksbis();
 
         [OperationContract]
         [WebGet(UriTemplate = "/Tasks/Filters")]

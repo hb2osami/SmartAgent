@@ -1,5 +1,6 @@
 ﻿using SmartAgent.Model;
 using SmartAgent.Services.DTO;
+using SmartAgent.Services.Pagination;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,12 +26,15 @@ namespace SmartAgent.Services.Gestion
                 return tasks;
             }
         }
-        public TacheDTO[] GetTasksbis(int offset, int limit, string sort, int dir ,string searchG, Dictionary<string, string> dic)
+        public TachesPag GetTasksbis(int offset, int limit, string sort, int dir ,string searchG, Dictionary<string, string> dic)
 
         {
+            TachesPag tasks = new TachesPag();
 
+            int count = 0;
             Boolean order = true;
             if (dir == 0) order = false;
+
 
             using (var context = new Model.SmartAgentDbEntities())
             {
@@ -76,7 +80,9 @@ namespace SmartAgent.Services.Gestion
                     result.OrderBy(sort, order);
                 }
                 // Pagination
-                TacheDTO[] tasks = result.ToArray().Select(a => new TacheDTO(a)).Skip(offset).Take(limit).ToArray();
+                
+                tasks.tasks   =result.ToArray().Select(a => new TacheDTO(a)).Skip(offset).Take(limit).ToArray();
+                tasks.total = tasks.tasks.Count();
                 return tasks;
             }
         }
