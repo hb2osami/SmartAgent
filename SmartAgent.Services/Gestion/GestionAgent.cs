@@ -159,8 +159,9 @@ namespace SmartAgent.Services.Gestion
                 }
 
                 // Pagination
+                agents.total = result.Count();
                 agents.agents = result.ToArray().Select(a => new AgentDTO(a)).Skip(offset).Take(limit).ToArray();
-                agents.total = agents.agents.Count();
+                
                 return agents;
 
             }

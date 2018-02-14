@@ -77,12 +77,12 @@ namespace SmartAgent.Services.Gestion
 
                 if (!string.IsNullOrEmpty(sort)) {
                     
-                    result.OrderBy(sort, order);
+                    result.OrderBy(sort, );
                 }
                 // Pagination
-                
+                tasks.total = result.Count();
                 tasks.tasks   =result.ToArray().Select(a => new TacheDTO(a)).Skip(offset).Take(limit).ToArray();
-                tasks.total = tasks.tasks.Count();
+                
                 return tasks;
             }
         }
