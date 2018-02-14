@@ -27,6 +27,7 @@ namespace SmartAgent.WebApplication
 
             bundles.Add(new ScriptBundle("~/bundles/angulartest").Include(
                       "~/Scripts/angular.js",
+                      "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
                       "~/Scripts/angular-cookies.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/myApp")

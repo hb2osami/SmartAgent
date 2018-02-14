@@ -1,4 +1,8 @@
 ﻿<div ng-controller="HomeController">
+    <div ng-show="alertOK" class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        Columns saved.
+    </div>
     <h2>Tasks</h2>
     <button ng-click="showCheckboxes = ! showCheckboxes; showSearch = false" type="button" class="btn btn-dark"><span id="btnicon" class="glyphicon" ng-class="{ 'glyphicon-plus': !showCheckboxes, 'glyphicon-minus': showCheckboxes }" aria-hidden="true"></span> Column choice</button>
     <button ng-click="showSearch = ! showSearch; showCheckboxes = false" type="button" class="btn btn-dark"><span id="btnicon" class="glyphicon" ng-class="{ 'glyphicon-plus': !showSearch, 'glyphicon-minus': showSearch }" aria-hidden="true"></span> Advanced search</button>
@@ -27,13 +31,13 @@
         <div class="row">
             <div class="form-group col-md-4" ng-repeat="data in filters">
                 <label for="{{data.name}}">{{data.name}}</label>
-                <input ng-model="filter" type="text" class="form-control" id="{{data.name}}" placeholder="{{data.name}}" name="{{data.name}}">
+                <input ng-model="data.value" type="text" class="form-control" id="{{data.name}}" placeholder="{{data.name}}" name="{{data.name}}">
             </div>
         </div>
         <div class="row">
             <div class="col-xs-12">
                 <br>
-                <button ng-click="searchIssue()" type="button" class="btn btn-default"><span id="btnicon" class="glyphicon glyphicon-search" aria-hidden="true"></span> Search</button>
+                <button ng-click="specificSearch()" type="button" class="btn btn-default"><span id="btnicon" class="glyphicon glyphicon-search" aria-hidden="true"></span> Search</button>
                 <button ng-click="emptySearch()" type="button" class="btn btn-link nocolor"><span id="btnicon" class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                 <br>
             </div>
@@ -58,37 +62,23 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th style="cursor: pointer" ng-repeat="(key, value) in columns" ng-show="value"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span> {{key}}</th>
-                <!--<th ng-show="showLocation" ng-click="reverse=!reverse;order('location', reverse)" style="cursor: pointer"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span> Location</th>
-                <th ng-show="showPriority" ng-click="reverse=!reverse;order('priority', reverse)" style="cursor: pointer"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span> Priority</th>
-                <th ng-show="showEmployee" ng-click="reverse=!reverse;order('name', reverse)" style="cursor: pointer"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span> Agent</th>
-                <th ng-show="showJob" ng-click="reverse=!reverse;order('job', reverse)" style="cursor: pointer"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span> Job</th>
-                <th ng-show="showCompany" ng-click="reverse=!reverse;order('company', reverse)" style="cursor: pointer"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span> Company</th>-->
+                <th style="cursor: pointer" ng-repeat="(key, value) in columns" ng-show="value" ng-click="reverse=!reverse;order(key, reverse)"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span> {{key}}</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="data in issues">
                 <td style="vertical-align: middle;" ng-repeat="(key, value) in data" ng-show="columns[key]">{{value}}</td>
-                <!--<td ng-show="showLocation" style="vertical-align: middle;">{{data.location}}</td>
-                <td ng-show="showPriority" style="vertical-align: middle;">{{data.priority}}</td>
-                <td ng-show="showEmployee" style="vertical-align: middle;">{{data.name}}</td>
-                <td ng-show="showJob" style="vertical-align: middle;">{{data.job}}</td>
-                <td ng-show="showCompany" style="vertical-align: middle;">{{data.company}}</td>-->
                 <td style="vertical-align: middle;"><a data-toggle="modal" data-target="#myModal" ng-click="openEdit(data.id)" class="btn">&nbsp;<i class="glyphicon glyphicon-edit"></i>&nbsp; Edit</a></td>
             </tr>
         </tbody>
     </table>
-    <pagination ng-model="currentPage"
-                total-items="totalItems"
-                items-per-page="numPerPage"
-                boundary-links="true"
-                previous-text="&lsaquo;"
+    <ul uib-pagination total-items="totalItems" ng-model="currentPage" boundary-links="true"
+        items-per-page="numPerPage" previous-text="&lsaquo;"
                 next-text="&rsaquo;"
                 first-text="&laquo;"
                 last-text="&raquo;"
-                force-ellipses="true">
-    </pagination>
+                force-ellipses="true"></ul>
 
     <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">

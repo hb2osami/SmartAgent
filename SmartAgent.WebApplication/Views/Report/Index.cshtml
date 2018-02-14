@@ -1,6 +1,14 @@
 ﻿<div ng-controller="ReportController">
-    <h2>Report an issue</h2>
-    <form enctype="multipart/form-data" action="index.php" method="post">
+    <div ng-show="success" class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        Task added.
+    </div>
+    <div ng-show="failure" class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        Error.
+    </div>
+    <h2>Add task</h2>
+    <form>
         <br><br>
         <div class="row">
             <div class="form-group col-md-4" ng-class="{'has-success': !isUndefinedOrNull(name), 'has-error': isUndefinedOrNull(name)}">
@@ -8,20 +16,18 @@
                 <input ng-model="name" required type="text" class="form-control" id="name" placeholder="Name" name="name">
                 <span class="glyphicon form-control-feedback smallgly" ng-class="{'glyphicon-ok': !isUndefinedOrNull(name), 'glyphicon-asterisk': isUndefinedOrNull(name)}" aria-hidden="true"></span>
             </div>
-            <div class="form-group col-md-4" ng-class="{'has-success': !isUndefinedOrNull(gender), 'has-error': isUndefinedOrNull(gender)}">
-                <label class="control-label" for="gender">Location</label>
-                <select ng-model="gender" required class="form-control" id="gender" name="gender">
-                    <option disabled selected value>Location</option>
-                </select>
-                <span class="glyphicon form-control-feedback smallgly" ng-class="{'glyphicon-ok': !isUndefinedOrNull(gender), 'glyphicon-asterisk': isUndefinedOrNull(gender)}" aria-hidden="true"></span>
+            <div class="form-group col-md-4" ng-class="{'has-success': !isUndefinedOrNull(location), 'has-error': isUndefinedOrNull(location)}">
+                <label class="control-label" for="location">Location</label>
+                <input ng-model="location" required type="text" class="form-control" id="location" placeholder="Location" name="location">
+<span class="glyphicon form-control-feedback smallgly" ng-class="{'glyphicon-ok': !isUndefinedOrNull(gender), 'glyphicon-asterisk': isUndefinedOrNull(gender)}" aria-hidden="true"></span>
             </div>
-            <div class="form-group col-md-4" ng-class="{'has-success': !isUndefinedOrNull(speciality), 'has-error': isUndefinedOrNull(speciality)}">
+            <div class="form-group col-md-4" ng-class="{'has-success': !isUndefinedOrNull(priority), 'has-error': isUndefinedOrNull(priority)}">
                 <label class="control-label" for="speciality">Priority</label>
-                <select ng-model="speciality" required class="form-control" id="speciality" name="speciality">
+                <select ng-model="priority" required class="form-control" id="priority" name="priority">
                     <option disabled selected value>Priority</option>
-                    <option value="1">1</option>
-                    <option value="1">2</option>
-                    <option value="1">3</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
                 </select>
                 <span class="glyphicon form-control-feedback smallgly" ng-class="{'glyphicon-ok': !isUndefinedOrNull(speciality), 'glyphicon-asterisk': isUndefinedOrNull(speciality)}" aria-hidden="true"></span>
             </div>
@@ -29,7 +35,7 @@
         <div class="row">
             <div class="form-group col-md-4">
                 <label for="entreprise">Agent</label>
-                <select class="form-control" id="agent" name="agent">
+                <select ng-model="agent" class="form-control" id="agent" name="agent">
                     <option disabled selected value>Agent</option>
                     <option ng-repeat="data in agents" value="{{data.id}}">{{data.prenom}} {{data.nom}}</option>
                 </select>
@@ -59,12 +65,9 @@
         </div>
         <div class="row">
             <div class="form-group col-md-12">
-                <button type="submit" class="btn btn-success btn-lg">Valider</button>
+                <button ng-click="submitTask()" type="submit" class="btn btn-success btn-lg">Valider</button>
                 <a href="/" class="btn btn-danger btn-sm">Annuler</a>
             </div>
         </div>
-            
-            
-            
 </form>
 </div>
