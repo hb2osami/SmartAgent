@@ -27,7 +27,7 @@ namespace SmartAgent.Services.DTO
         [DataMember(Order = 6)]
         public string name { get; set; }
 
-        [DataMember(Order = 6)]
+        [DataMember(Order = 7)]
         public int idA { get; set; }
 
         public TacheDTO(Model.Task t)
