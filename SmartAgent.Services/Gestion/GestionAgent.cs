@@ -210,10 +210,16 @@ namespace SmartAgent.Services.Gestion
                 GestionTache gt = new GestionTache();
                 Agent agent = context.Agents.Find(idA);
                 if (agent == null) return 0;
-                for( int i=0; i < agent.ReportedTasks.Count(); i++)
+                //foreach (Model.Task task in agent.ReportedTasks)
+                //{
+                //    context.Tasks.Remove()
+                //}
+                for ( int i=0; i < agent.ReportedTasks.Count(); i++)
                 {
-                    gt.DeleteTask(agent.ReportedTasks.ElementAt(i).Id);
+
+                    context.Tasks.Remove(agent.ReportedTasks.ElementAt(i));
                 }
+                
                 context.Agents.Remove(agent);
                 context.SaveChanges();
                 return 1;

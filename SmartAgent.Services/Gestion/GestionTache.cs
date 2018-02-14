@@ -77,7 +77,7 @@ namespace SmartAgent.Services.Gestion
 
                 if (!string.IsNullOrEmpty(sort)) {
                     
-                    result.OrderBy(sort, );
+                    result.OrderBy(sort,true );
                 }
                 // Pagination
                 tasks.total = result.Count();

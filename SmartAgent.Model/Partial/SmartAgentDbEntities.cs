@@ -21,6 +21,7 @@
             modelBuilder.Entity<Agent>().Property(a => a.LastName).IsRequired().HasMaxLength(255);
             modelBuilder.Entity<Agent>().Property(a => a.FirstName).IsRequired();
 
+
         }
 
 

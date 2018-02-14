@@ -92,7 +92,7 @@ namespace SmartAgent.WcfService
         int DeleteAgent(string idA);
 
         [OperationContract]
-        [WebInvoke(Method = "DELETE", UriTemplate = "/Tasks//{idT}")]
+        [WebInvoke(Method = "DELETE", UriTemplate = "/Tasks/{idT}")]
         int DeleteTask(string idT);
 
         // TODO: ajoutez vos opérations de service ici
