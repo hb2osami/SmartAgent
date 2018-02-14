@@ -138,7 +138,7 @@ namespace SmartAgent.WcfService
             return gf.GetTasksFilters();
         }
 
-        public AgentDTO[] GetAgentsBis()
+        public AgentsPag GetAgentsBis()
         {
             UriTemplateMatch tmp = WebOperationContext.Current.IncomingRequest.UriTemplateMatch;
             Dictionary<string, string> dictionary = new Dictionary<string, string>();
@@ -171,7 +171,7 @@ namespace SmartAgent.WcfService
             return ga.GetAgentsbis(offset, limit, sort, dir, searchG, dictionary);
         }
  
-        public TacheDTO[] GetTasksbis()
+        public TachesPag GetTasksbis()
         {
             // Request Parameters
             UriTemplateMatch tmp = WebOperationContext.Current.IncomingRequest.UriTemplateMatch;

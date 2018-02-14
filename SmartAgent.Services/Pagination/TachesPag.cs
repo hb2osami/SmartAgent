@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace SmartAgent.Services.Pagination
 {
     [DataContract]
-    class TachesPag
+    public class TachesPag
     {
         [DataMember]
         public int total { get; set; }

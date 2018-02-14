@@ -114,15 +114,22 @@ namespace SmartAgent.Services.Gestion
                 return agts;
             }
         }
-        public AgentDTO[] GetAgentsbis(int offset, int limit, string sort, int dir, string searchG, Dictionary<string, string> dic) {
+        public AgentsPag GetAgentsbis(int offset, int limit, string sort, int dir, string searchG, Dictionary<string, string> dic) {
             Boolean order = true;
             if (dir == 0) order = false;
+            int count = 0;
+            AgentsPag agents = new AgentsPag();
 
             using (var context = new Model.SmartAgentDbEntities())
             {
+                count = context.Agents.Count();
                 var result = context.Agents.AsQueryable();
                 foreach (KeyValuePair<string, string> entry in dic)
                 {
+                    if (entry.Key.ToLower() == "id")
+                    {
+                        result = result.Where(x => x.Id == int.Parse(entry.Value));
+                    }
                     if (entry.Key.ToLower() == "firstname")
                     {
                         result = result.Where(x => x.FirstName == entry.Value);
@@ -152,7 +159,8 @@ namespace SmartAgent.Services.Gestion
                 }
 
                 // Pagination
-                AgentDTO[] agents = result.ToArray().Select(a => new AgentDTO(a)).Skip(offset).Take(limit).ToArray();
+                agents.agents = result.ToArray().Select(a => new AgentDTO(a)).Skip(offset).Take(limit).ToArray();
+                agents.total = agents.agents.Count();
                 return agents;
 
             }
