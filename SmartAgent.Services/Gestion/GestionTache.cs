@@ -39,24 +39,32 @@ namespace SmartAgent.Services.Gestion
                 string where = "";
                 foreach (KeyValuePair<string, string> entry in dic)
                 {
+                    if (entry.Key.ToLower() == "id")
+                    {
+                        result = result.Where(x => x.Id== int.Parse(entry.Value));
+                    }
+                    if (entry.Key.ToLower() == "ida")
+                    {
+                        result = result.Where(x => x.Author.Id == int.Parse(entry.Value));
+                    }
                     if (entry.Key.ToLower() == "location") {
-                        result = result.Where(x => x.Location == entry.Value);
+                        result = result.Where(x => x.Location.Contains(entry.Value));
                     }
                     if (entry.Key.ToLower() == "priority")
                     {
-                        result = result.Where(x => x.Priority == entry.Value );
+                        result = result.Where(x => x.Priority.Contains(entry.Value) );
                     }
                     if (entry.Key == "label")
                     {
-                        result = result.Where(x => x.Label == entry.Value);
+                        result = result.Where(x => x.Label.Contains(entry.Value) );
                     }
                     if (entry.Key == "company")
                     {
-                        result = result.Where(x => x.Author.Company == entry.Value);
+                        result = result.Where(x => x.Author.Company.Contains(entry.Value));
                     }
                     if (entry.Key == "job")
                     {
-                        result = result.Where(x => x.Author.Job == entry.Value);
+                        result = result.Where(x => x.Author.Job.Contains(entry.Value));
                     }
                 }
                 if (!string.IsNullOrEmpty(searchG)) {

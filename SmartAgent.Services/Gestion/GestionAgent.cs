@@ -123,6 +123,10 @@ namespace SmartAgent.Services.Gestion
                 var result = context.Agents.AsQueryable();
                 foreach (KeyValuePair<string, string> entry in dic)
                 {
+                    if (entry.Key.ToLower() == "id")
+                    {
+                        result = result.Where(x => x.Id == int.Parse(entry.Value));
+                    }
                     if (entry.Key.ToLower() == "firstname")
                     {
                         result = result.Where(x => x.FirstName == entry.Value);
