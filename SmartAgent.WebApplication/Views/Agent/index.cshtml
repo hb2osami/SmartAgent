@@ -1,0 +1,127 @@
+﻿<div ng-controller="AgentController">
+    <div ng-show="alertOK" class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        Columns saved.
+    </div>
+    <h2>Tasks</h2>
+    <button ng-click="showCheckboxes = ! showCheckboxes; showSearch = false" type="button" class="btn btn-dark"><span id="btnicon" class="glyphicon" ng-class="{ 'glyphicon-plus': !showCheckboxes, 'glyphicon-minus': showCheckboxes }" aria-hidden="true"></span> Column choice</button>
+    <button ng-click="showSearch = ! showSearch; showCheckboxes = false" type="button" class="btn btn-dark"><span id="btnicon" class="glyphicon" ng-class="{ 'glyphicon-plus': !showSearch, 'glyphicon-minus': showSearch }" aria-hidden="true"></span> Advanced search</button>
+    <form ng-show="showCheckboxes" id="columnform">
+        <br>
+        <h3>Columns</h3>
+        <div class="row">
+            <div class="col-md-2" ng-repeat="data in filters">
+                <label class="checkbox-inline">
+                    <input ng-model="columns[data.name]" type="checkbox"> {{data.name}}
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <br>
+                <button ng-click="saveCookie()" type="button" class="btn btn-default"><span id="btnicon" class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12"><hr></div>
+        </div>
+    </form>
+    <form ng-show="showSearch" id="searchform">
+        <br />
+        <div class="row">
+            <div class="form-group col-md-4" ng-repeat="data in filters">
+                <label for="{{data.name}}">{{data.name}}</label>
+                <input ng-model="data.value" type="text" class="form-control" id="{{data.name}}" placeholder="{{data.name}}" name="{{data.name}}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <br>
+                <button ng-click="specificSearch()" type="button" class="btn btn-default"><span id="btnicon" class="glyphicon glyphicon-search" aria-hidden="true"></span> Search</button>
+                <button ng-click="emptySearch()" type="button" class="btn btn-link nocolor"><span id="btnicon" class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <br>
+            </div>
+        </div>
+    </form>
+    <div class="form-group searchinput">
+        <div class="col-xs-7">
+            <span class="searchicon">
+                <input ng-change="globalSearch()" ng-model="search" class="form-control" id="search" placeholder="Search..." />
+            </span>
+        </div>
+    </div>
+    <div class="floatright">
+        Issues per page:
+        <select ng-model="numPerPage" id="numPerPage" name="numPerPage">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th style="cursor: pointer" ng-repeat="(key, value) in columns" ng-show="value" ng-click="reverse=!reverse;order(key, reverse)"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span> {{key}}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="data in agents">
+                <td style="vertical-align: middle;" ng-repeat="(key, value) in data" ng-show="columns[key]">{{value}}</td>
+                <td style="vertical-align: middle;"><a data-toggle="modal" data-target="#myModal" ng-click="openEdit(data.id)" class="btn">&nbsp;<i class="glyphicon glyphicon-edit"></i>&nbsp; Edit</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <ul uib-pagination total-items="totalItems" ng-model="currentPage" boundary-links="true"
+        items-per-page="numPerPage" previous-text="&lsaquo;"
+        next-text="&rsaquo;"
+        first-text="&laquo;"
+        last-text="&raquo;"
+        force-ellipses="true"></ul>
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog" id="myModalWidth">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit an issue</h4>
+                </div>
+                <div class="modal-body">
+                    <form enctype="multipart/form-data" method="post">
+                        <br><br>
+                        <div class="form-group col-md-6">
+                            <label for="name">Issue</label>
+                            <input required type="text" class="form-control" id="name" value="{{agent.task}}" ng-model="agent.task" name="name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="location">Location</label>
+                            <input required type="text" class="form-control" id="location" value="{{agent.location}}" ng-model="agent.location" name="location">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="priority">Priority</label>
+                            <select class="form-control" id="priority" name="priority" value="{{agent.priority}}" ng-model="agent.priority">
+                                <option disabled value="">Priority</option>
+                                <option value="low">low</option>
+                                <option value="medium">medium</option>
+                                <option value="high">high</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="employee">Employee</label>
+                            <select class="form-control" id="employee" name="employee" value="{{agent.employee}}" ng-model="agent.employee">
+                                <option disabled value="">Employee</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-12"><hr></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" ng-click="submitUpdate()" class="btn btn-success btn-lg" data-dismiss="modal">Valider</button>
+                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
