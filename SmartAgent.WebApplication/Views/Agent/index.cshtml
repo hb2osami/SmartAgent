@@ -1,9 +1,9 @@
-﻿<div ng-controller="HomeController">
+﻿<div ng-controller="AgentController">
     <div ng-show="alertOK" class="alert alert-success alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         Columns saved.
     </div>
-    <h2>Tasks</h2>
+    <h2>Agents</h2>
     <button ng-click="showCheckboxes = ! showCheckboxes; showSearch = false" type="button" class="btn btn-dark"><span id="btnicon" class="glyphicon" ng-class="{ 'glyphicon-plus': !showCheckboxes, 'glyphicon-minus': showCheckboxes }" aria-hidden="true"></span> Column choice</button>
     <button ng-click="showSearch = ! showSearch; showCheckboxes = false" type="button" class="btn btn-dark"><span id="btnicon" class="glyphicon" ng-class="{ 'glyphicon-plus': !showSearch, 'glyphicon-minus': showSearch }" aria-hidden="true"></span> Advanced search</button>
     <form ng-show="showCheckboxes" id="columnform">
@@ -42,7 +42,7 @@
                 <br>
             </div>
         </div>
-</form>
+    </form>
     <div class="form-group searchinput">
         <div class="col-xs-7">
             <span class="searchicon">
@@ -51,13 +51,8 @@
         </div>
     </div>
     <div class="floatright">
-        Issues per page:
-        <select ng-model="numPerPage" id="numPerPage" name="numPerPage">
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-        </select>
+        Agents per page:
+        <select id="numPerPage" name="numPerPage" ng-options="item for item in pageSelector" ng-model="numPerPage"></select>
     </div>
     <table class="table table-hover">
         <thead>
@@ -67,7 +62,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="data in issues">
+            <tr ng-repeat="data in agents">
                 <td style="vertical-align: middle;" ng-repeat="(key, value) in data" ng-show="columns[key]">{{value}}</td>
                 <td style="vertical-align: middle;"><a data-toggle="modal" data-target="#myModal" ng-click="openEdit(data.id)" class="btn">&nbsp;<i class="glyphicon glyphicon-edit"></i>&nbsp; Edit</a></td>
             </tr>
@@ -75,15 +70,13 @@
     </table>
     <ul uib-pagination total-items="totalItems" ng-model="currentPage" boundary-links="true"
         items-per-page="numPerPage" previous-text="&lsaquo;"
-                next-text="&rsaquo;"
-                first-text="&laquo;"
-                last-text="&raquo;"
-                force-ellipses="true"></ul>
-
+        next-text="&rsaquo;"
+        first-text="&laquo;"
+        last-text="&raquo;"
+        force-ellipses="true"></ul>
     <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog" id="myModalWidth">
-
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
@@ -93,51 +86,12 @@
                 <div class="modal-body">
                     <form enctype="multipart/form-data" method="post">
                         <br><br>
-                        <div class="form-group col-md-6">
-                            <label for="name">Issue</label>
-                            <input required type="text" class="form-control" id="name" value="{{issue.task}}" ng-model="issue.task" name="name">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="location">Location</label>
-                            <input required type="text" class="form-control" id="location" value="{{issue.location}}" ng-model="issue.location" name="location">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="priority">Priority</label>
-                            <select class="form-control" id="priority" name="priority" value="{{issue.priority}}" ng-model="issue.priority">
-                                <option disabled value="">Priority</option>
-                                <option value="low">low</option>
-                                <option value="medium">medium</option>
-                                <option value="high">high</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="employee">Employee</label>
-                            <select class="form-control" id="employee" name="employee" value="{{issue.employee}}" ng-model="issue.employee">
-                                <option disabled value="">Employee</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <button onclick="openNew()" type="button" class="btn btn-dark btnaddemployee"><span id="btniconemployee" class="glyphicon glyphicon-plus" aria-hidden="true"></span> New employee</button>
-                            <div id="newEmployee" class="newEmployee somemargin">
-                                <div class="form-group col-md-6">
-                                    <label for="firstname">Firstname</label>
-                                    <input type="text" class="form-control" id="firstname" placeholder="Firstname" name="firstname">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="lastname">Lastname</label>
-                                    <input type="text" class="form-control" id="lastname" placeholder="Lastname" name="lastname">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="job">Job</label>
-                                    <input type="text" class="form-control" id="job" placeholder="Job" name="job">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="company">Company</label>
-                                    <input type="text" class="form-control" id="company" placeholder="Company" name="company">
-                                </div>
+                        <div class="row">
+                            <div class="form-group col-md-4" ng-repeat="data in filters" ng-show="data.name != 'id'">
+                                <label class="control-label" for="{{data.name}}">{{data.name}}</label>
+                                <input ng-model="agent[data.name]" required type="text" class="form-control" id="{{data.name}}" name="{{data.name}}">
                             </div>
                         </div>
-                        <div class="col-xs-12"><hr></div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -145,7 +99,6 @@
                     <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Annuler</button>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

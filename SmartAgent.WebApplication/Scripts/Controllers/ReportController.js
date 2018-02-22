@@ -10,7 +10,7 @@
     });
 
     $scope.submitTask = function () {
-        $scope.task['task'] = $scope.name;
+        $scope.task['label'] = $scope.name;
         $scope.task['location'] = $scope.location;
         $scope.task['priority'] = $scope.priority;
         $scope.task['idA'] = $scope.agent;
