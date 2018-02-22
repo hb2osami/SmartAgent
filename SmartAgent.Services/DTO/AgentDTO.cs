@@ -11,15 +11,15 @@ namespace SmartAgent.Services.DTO
     [DataContract]
     public class AgentDTO
     {
-        [DataMember]
+        [DataMember(Order = 0)]
         public string LastName { get; set; }
-        [DataMember]
+        [DataMember(Order = 1)]
         public string FirstName { get; set; }
-        [DataMember]
+        [DataMember(Order = 2)]
         public int id { get; set; }
-        [DataMember]
+        [DataMember(Order = 3)]
         public string job { get; set; }
-        [DataMember]
+        [DataMember(Order = 4)]
         public string company { get; set; }
 
         public AgentDTO(Agent ag)
