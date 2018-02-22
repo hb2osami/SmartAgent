@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Service1" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:49197/Service1.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:49197/Service1.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:49197/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SmartAgent.WcfService" />
+      <xsd:import schemaLocation="http://localhost:49197/Service1.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/SmartAgent.Services.DTO" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IService1_GetData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetData" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_Tag_InputMessage">
+    <wsdl:part name="parameters" element="tns:Tag" />
+  </wsdl:message>
+  <wsdl:message name="IService1_Tag_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TagResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_Init_InputMessage">
+    <wsdl:part name="parameters" element="tns:Init" />
+  </wsdl:message>
+  <wsdl:message name="IService1_Init_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InitResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_Clean_InputMessage">
+    <wsdl:part name="parameters" element="tns:Clean" />
+  </wsdl:message>
+  <wsdl:message name="IService1_Clean_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CleanResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetDataUsingDataContract_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataUsingDataContract" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetDataUsingDataContract_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataUsingDataContractResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAgents_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAgents" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAgents_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAgentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAgent_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAgent" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAgent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAgentResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetTasks_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTasks" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetTasks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTasksResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetTask_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTask" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetTask_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_Search_InputMessage">
+    <wsdl:part name="parameters" element="tns:Search" />
+  </wsdl:message>
+  <wsdl:message name="IService1_Search_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddAgent_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddAgent" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddAgent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddAgentResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddTask_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddTask" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddTask_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_UpdateAgent_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAgent" />
+  </wsdl:message>
+  <wsdl:message name="IService1_UpdateAgent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAgentResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_UpdateTask_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTask" />
+  </wsdl:message>
+  <wsdl:message name="IService1_UpdateTask_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteAgent_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAgent" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteAgent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAgentResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteTask_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteTask" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteTask_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteTaskResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IService1">
+    <wsdl:operation name="GetData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetData" message="tns:IService1_GetData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetDataResponse" message="tns:IService1_GetData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Tag">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/Tag" message="tns:IService1_Tag_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/TagResponse" message="tns:IService1_Tag_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Init">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/Init" message="tns:IService1_Init_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/InitResponse" message="tns:IService1_Init_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Clean">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/Clean" message="tns:IService1_Clean_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CleanResponse" message="tns:IService1_Clean_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDataUsingDataContract">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetDataUsingDataContract" message="tns:IService1_GetDataUsingDataContract_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetDataUsingDataContractResponse" message="tns:IService1_GetDataUsingDataContract_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAgents">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAgents" message="tns:IService1_GetAgents_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAgentsResponse" message="tns:IService1_GetAgents_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAgent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAgent" message="tns:IService1_GetAgent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAgentResponse" message="tns:IService1_GetAgent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTasks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetTasks" message="tns:IService1_GetTasks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetTasksResponse" message="tns:IService1_GetTasks_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTask">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetTask" message="tns:IService1_GetTask_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetTaskResponse" message="tns:IService1_GetTask_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Search">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/Search" message="tns:IService1_Search_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SearchResponse" message="tns:IService1_Search_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAgent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddAgent" message="tns:IService1_AddAgent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddAgentResponse" message="tns:IService1_AddAgent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddTask">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddTask" message="tns:IService1_AddTask_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddTaskResponse" message="tns:IService1_AddTask_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAgent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/UpdateAgent" message="tns:IService1_UpdateAgent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/UpdateAgentResponse" message="tns:IService1_UpdateAgent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTask">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/UpdateTask" message="tns:IService1_UpdateTask_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/UpdateTaskResponse" message="tns:IService1_UpdateTask_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAgent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DeleteAgent" message="tns:IService1_DeleteAgent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DeleteAgentResponse" message="tns:IService1_DeleteAgent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTask">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DeleteTask" message="tns:IService1_DeleteTask_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DeleteTaskResponse" message="tns:IService1_DeleteTask_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetData">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Tag">
+      <soap:operation soapAction="http://tempuri.org/IService1/Tag" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Init">
+      <soap:operation soapAction="http://tempuri.org/IService1/Init" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Clean">
+      <soap:operation soapAction="http://tempuri.org/IService1/Clean" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDataUsingDataContract">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetDataUsingDataContract" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgents">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetAgents" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgent">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetAgent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTasks">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetTasks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTask">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Search">
+      <soap:operation soapAction="http://tempuri.org/IService1/Search" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAgent">
+      <soap:operation soapAction="http://tempuri.org/IService1/AddAgent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddTask">
+      <soap:operation soapAction="http://tempuri.org/IService1/AddTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAgent">
+      <soap:operation soapAction="http://tempuri.org/IService1/UpdateAgent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTask">
+      <soap:operation soapAction="http://tempuri.org/IService1/UpdateTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAgent">
+      <soap:operation soapAction="http://tempuri.org/IService1/DeleteAgent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTask">
+      <soap:operation soapAction="http://tempuri.org/IService1/DeleteTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="BasicHttpBinding_IService1" binding="tns:BasicHttpBinding_IService1">
+      <soap:address location="http://localhost:49197/Service1.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

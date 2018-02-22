@@ -18,7 +18,9 @@ namespace SmartAgent.Model
         public SmartAgentDbEntities()
             : base("name=SmartAgentDbEntities")
         {
+    		OnContextCreated(); 
         }
+    	partial void OnContextCreated(); 
     
        // protected override void OnModelCreating(DbModelBuilder modelBuilder)
         //{

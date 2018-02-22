@@ -8,6 +8,10 @@ using System.Text;
 using SmartAgent.Services;
 using SmartAgent.Services.Gestion;
 using SmartAgent.Services.DTO;
+using SmartAgent.WcfService.filters;
+using SmartAgent.Services.Pagination;
+using System.Collections.Specialized;
+using System.Net;
 
 namespace SmartAgent.WcfService
 {
@@ -19,21 +23,18 @@ namespace SmartAgent.WcfService
 
         private GestionTache gt = new GestionTache();
 
-        public void AddAgent(string fName,string lName)
+        private GestionFilters gf = new GestionFilters();
+
+        public int  AddAgent(AgentDTO ag)
         {
-             ga.AddAgent(fName, lName, DateTime.Now);
+            return ga.AddAgent(ag);
+            
         }
 
-        public AgentDTO[] GetAgents()
+        public AgentDTO[] GetAgents( )
         {
             return ga.GetAgents();
         }
-
-        public AgentDTO[] Search(string nom)
-        {
-            return ga.GetAgents(nom);
-        }
-
         public string GetData(int value)
         {
             //Model.Agent agent = new Model.Agent() { FirstName = "Valentin", LastName = "DURAND", BirthDate = DateTime.Now };
@@ -60,13 +61,9 @@ namespace SmartAgent.WcfService
             //    item.prenom
             //}
 
+
             return string.Format("You entered: {0}", value);
         }
-
-        //public bool function(Model.Agent a)
-        //{
-        //    return a.FirstName.Contains("mon");
-        //}
         public CompositeType GetDataUsingDataContract(CompositeType composite)
         {
             if (composite == null)
@@ -82,7 +79,7 @@ namespace SmartAgent.WcfService
 
         public string Tag()
         {
-            return "coucou";
+            return "cava mimossun";
         }
 
         public void Init()
@@ -100,10 +97,9 @@ namespace SmartAgent.WcfService
             return ga.GetAgent(int.Parse(idA));
         }
 
-        public void AddTask(string idA,string nomTache )
+        public int AddTask(TacheDTO task)
         {
-            gt.AddTask(int.Parse(idA), nomTache);
-            
+            return gt.AddTask(task);
         }
 
         public void Clean()
@@ -115,19 +111,14 @@ namespace SmartAgent.WcfService
         {
             return gt.GetTask(int.Parse(id));
         }
-
-
-
-        public int UpdateAgent(string idA, string newFname)
+        public int UpdateAgent(AgentDTO ag)
         {
-            return ga.UpdateAgent(int.Parse(idA), newFname);
+            return ga.UpdateAgent(ag);
         }
-
-        public int UpdateTask(string idT, string newFname)
+        public int UpdateTask(TacheDTO task)
         {
-            return gt.UpdateTask(int.Parse(idT), newFname);
+            return gt.UpdateTask(task);
         }
-
         public int DeleteAgent(string idA)
         {
             return ga.DeleteAgent(int.Parse(idA));
@@ -137,5 +128,76 @@ namespace SmartAgent.WcfService
         {
            return gt.DeleteTask(int.Parse(idT));
         }
+
+        public List<Filter> GetAgentsFilters()
+        {
+            return gf.GetAgentsFilters();
+        }
+        public List<Filter> GetTasksFilters()
+        {
+            return gf.GetTasksFilters();
+        }
+
+        public AgentsPag GetAgentsBis()
+        {
+            UriTemplateMatch tmp = WebOperationContext.Current.IncomingRequest.UriTemplateMatch;
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            NameValueCollection query = tmp.QueryParameters;
+            //Response Parameters
+            WebOperationContext ctx = WebOperationContext.Current;
+            //if (!query.AllKeys.Contains("offset") || !query.AllKeys.Contains("limit"))
+            //{
+            //    throw new WebFaultException<string>("Bad request", HttpStatusCode.BadRequest);
+            //}
+            
+            int dir = 0;
+            int offset = 0;
+            int limit = 20;
+            if (query.AllKeys.Contains("dir")) dir = int.Parse(tmp.QueryParameters["dir"]);
+            if (query.AllKeys.Contains("limit")) limit = int.Parse(tmp.QueryParameters["limit"]);
+            if (query.AllKeys.Contains("offset")) offset = int.Parse(tmp.QueryParameters["offset"]);
+
+            string sort = tmp.QueryParameters["sort"];
+            string searchG = tmp.QueryParameters["searchG"];
+
+            List<Filter> filters = gf.GetAgentsFilters();
+            foreach (Filter f in filters)
+            {
+                if (query.AllKeys.Contains(f.name))
+                {
+                    dictionary.Add(f.name, query[f.name]);
+                }
+            }
+            return ga.GetAgentsbis(offset, limit, sort, dir, searchG, dictionary);
+        }
+ 
+        public TachesPag GetTasksbis()
+        {
+            // Request Parameters
+            UriTemplateMatch tmp = WebOperationContext.Current.IncomingRequest.UriTemplateMatch;
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            NameValueCollection query = tmp.QueryParameters;
+            //Response Parameters
+            WebOperationContext ctx = WebOperationContext.Current;
+
+            int dir = 0;
+            int offset = 0;
+            int limit = 20;
+            if (query.AllKeys.Contains("dir")) dir = int.Parse(tmp.QueryParameters["dir"]);
+            if (query.AllKeys.Contains("limit")) limit = int.Parse(tmp.QueryParameters["limit"]);
+            if (query.AllKeys.Contains("offset")) offset = int.Parse(tmp.QueryParameters["offset"]);
+
+            
+            string sort = tmp.QueryParameters["sort"];
+            string searchG = tmp.QueryParameters["searchG"];
+
+            List<Filter> filters = gf.GetTasksFilters();
+            foreach(Filter f in filters) {
+                if (query.AllKeys.Contains(f.name)) {
+                    dictionary.Add(f.name, query[f.name]);
+                }
+            } 
+            return gt.GetTasksbis(offset, limit, sort, dir, searchG, dictionary);
+        }   
     }
-}
+    }

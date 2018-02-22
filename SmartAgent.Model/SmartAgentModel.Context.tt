@@ -58,6 +58,7 @@ using System.Linq;
     public <#=code.Escape(container)#>()
         : base("name=<#=container.Name#>")
     {
+		OnContextCreated(); 
 <#
 if (!loader.IsLazyLoadingEnabled(container))
 {
@@ -79,6 +80,7 @@ foreach (var entitySet in container.BaseEntitySets.OfType<EntitySet>())
 }
 #>
     }
+	partial void OnContextCreated(); 
 
    // protected override void OnModelCreating(DbModelBuilder modelBuilder)
     //{

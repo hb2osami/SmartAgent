@@ -1,8 +1,11 @@
 ﻿using SmartAgent.Model;
 using SmartAgent.Services.DTO;
+using SmartAgent.Services.Pagination;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +22,67 @@ namespace SmartAgent.Services.Gestion
             using (var context = new Model.SmartAgentDbEntities())
             {
                 TacheDTO[] tasks = context.Tasks.ToArray().Select(a => new TacheDTO(a)).ToArray();
+                List<TacheDTO> list = context.Tasks.ToList().Select(a => new TacheDTO(a)).ToList();
+                return tasks;
+            }
+        }
+        public TachesPag GetTasksbis(int offset, int limit, string sort, int dir ,string searchG, Dictionary<string, string> dic)
+
+        {
+            TachesPag tasks = new TachesPag();
+
+            int count = 0;
+            Boolean order = true;
+            if (dir == 0) order = false;
+
+
+            using (var context = new Model.SmartAgentDbEntities())
+            {
+                
+                var result = context.Tasks.AsQueryable();
+                string where = "";
+                foreach (KeyValuePair<string, string> entry in dic)
+                {
+                    if (entry.Key.ToLower() == "id")
+                    {
+                        result = result.Where(x => x.Id== int.Parse(entry.Value));
+                    }
+                    if (entry.Key.ToLower() == "ida")
+                    {
+                        result = result.Where(x => x.Author.Id == int.Parse(entry.Value));
+                    }
+                    if (entry.Key.ToLower() == "location") {
+                        result = result.Where(x => x.Location.Contains(entry.Value));
+                    }
+                    if (entry.Key.ToLower() == "priority")
+                    {
+                        result = result.Where(x => x.Priority.Contains(entry.Value) );
+                    }
+                    if (entry.Key == "label")
+                    {
+                        result = result.Where(x => x.Label.Contains(entry.Value) );
+                    }
+                    if (entry.Key == "company")
+                    {
+                        result = result.Where(x => x.Author.Company.Contains(entry.Value));
+                    }
+                    if (entry.Key == "job")
+                    {
+                        result = result.Where(x => x.Author.Job.Contains(entry.Value));
+                    }
+                }
+                if (!string.IsNullOrEmpty(searchG)) {
+                    result = result.Where(x => x.Label.Contains(searchG) || x.Location.Contains(searchG) || x.Label.Contains(searchG) || x.Author.FirstName.Contains(searchG) || x.Author.LastName.Contains(searchG) || x.Author.Job.Contains(searchG));
+                }
+
+                if (!string.IsNullOrEmpty(sort)) {
+                    
+                    result.OrderBy(sort,true );
+                }
+                // Pagination
+                tasks.total = result.Count();
+                tasks.tasks   =result.ToArray().Select(a => new TacheDTO(a)).Skip(offset).Take(limit).ToArray();
+                
                 return tasks;
             }
         }
@@ -40,37 +104,31 @@ namespace SmartAgent.Services.Gestion
             }
 
         }
-
-        public int AddTask(int AgentId,String label)
+        public int AddTask(TacheDTO t)
         {
             using (var context = new Model.SmartAgentDbEntities())
             {
-                Agent agent = context.Agents.Find(AgentId);
-
+                Agent agent = context.Agents.Find(t.idA);
                 if (agent == null) return 0;
-
-                Model.Task task = new Model.Task { Label = label, Priority = "high", Location = "Paris" };
-
-                List<Model.Task> lt = new List<Model.Task>();
-
-                lt.Add(task);
+                Model.Task task = new Model.Task { Label = t.label, Priority = t.priority, Location = t.location,Author=agent };
                 agent.ReportedTasks.Add(task);
-                //context.Tasks.Add(task);
                 context.SaveChanges();
-
-
             }
             return 1;
         }
-        public int UpdateTask(int idT, string newLabel)
+        public int UpdateTask(TacheDTO t)
         {
             using (var context = new Model.SmartAgentDbEntities())
             {
-                Model.Task task = context.Tasks.Find(idT);
-                if (task == null) return 0;
-                task.Label = newLabel;
+                Model.Task tache = context.Tasks.Find(t.id);
+                Model.Agent agent = context.Agents.Find(t.idA);
+                if (tache == null) return 0;
+                tache.Label = t.label;
+                tache.Location = t.location;
+                tache.Priority = t.priority;
+                tache.Author = agent;
                 context.SaveChanges();
-                return task.Id;
+                return 1;
             }
 
         }
@@ -86,6 +144,5 @@ namespace SmartAgent.Services.Gestion
             }
 
         }
-
     }
 }

@@ -68,16 +68,26 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\DataBaseAgent.mdf" />
+    <Content Include="App_Data\DataBaseAgent_log.ldf">
+      <DependentUpon>DataBaseAgent.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\SmartAgentDb.mdf" />
     <Content Include="App_Data\SmartAgentDb_log.ldf">
       <DependentUpon>SmartAgentDb.mdf</DependentUpon>
     </Content>
+    <Content Include="Global.asax" />
     <Content Include="Service1.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="filters\Filter.cs" />
+    <Compile Include="filters\GestionFilters.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Service1.svc.cs">
       <DependentUpon>Service1.svc</DependentUpon>
     </Compile>

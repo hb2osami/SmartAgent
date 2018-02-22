@@ -15,7 +15,10 @@ namespace SmartAgent.Model
     public partial class Agent
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        
+        public Agent()
+        {
+            this.ReportedTasks = new HashSet<Task>();
+        }
     
         public int Id { get; set; }
         public string FirstName { get; set; }

@@ -1,0 +1,27 @@
+﻿<div ng-controller="EnrollController">
+    <div ng-show="success" class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        Agent added.
+    </div>
+    <div ng-show="failure" class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        Error.
+    </div>
+    <h2>Add task</h2>
+    <form>
+        <br><br>
+        <div class="row">
+            <div class="form-group col-md-4 has-feedback" ng-repeat="data in filters" ng-show="data.name != 'id'" ng-class="{'has-success': !isUndefinedOrNull(data.value), 'has-error': isUndefinedOrNull(data.value)}">
+                <label class="control-label" for="{{data.name}}">{{data.name}}</label>
+                <span class="glyphicon form-control-feedback smallgly" ng-class="{'glyphicon-ok': !isUndefinedOrNull(data.value), 'glyphicon-asterisk': isUndefinedOrNull(data.value)}" aria-hidden="true"></span>
+                <input ng-model="data.value" required type="text" class="form-control" id="{{data.name}}" placeholder="{{data.name}}" name="{{data.name}}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <button ng-click="submitAgent()" type="submit" class="btn btn-success btn-lg">Valider</button>
+                <a href="/" class="btn btn-danger btn-sm">Annuler</a>
+            </div>
+        </div>
+    </form>
+</div>

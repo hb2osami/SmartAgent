@@ -22,7 +22,18 @@ namespace SmartAgent.WebApplication
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/style.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angulartest").Include(
+                      "~/Scripts/angular.js",
+                      "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
+                      "~/Scripts/angular-cookies.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/myApp")
+            .Include("~/Scripts/myApp.js")
+            .IncludeDirectory("~/Scripts/Controllers", "*.js")
+            );
         }
     }
 }
