@@ -11,10 +11,10 @@
     <form>
         <br><br>
         <div class="row">
-            <div class="form-group col-md-4" ng-repeat="data in filters" ng-show="data.name != 'id'" ng-class="{'has-success': !isUndefinedOrNull(data.value), 'has-error': isUndefinedOrNull(data.value)}">
+            <div class="form-group col-md-4 has-feedback" ng-repeat="data in filters" ng-show="data.name != 'id'" ng-class="{'has-success': !isUndefinedOrNull(data.value), 'has-error': isUndefinedOrNull(data.value)}">
                 <label class="control-label" for="{{data.name}}">{{data.name}}</label>
-                <input ng-model="data.value" required type="text" class="form-control" id="{{data.name}}" placeholder="{{data.name}}" name="{{data.name}}">
                 <span class="glyphicon form-control-feedback smallgly" ng-class="{'glyphicon-ok': !isUndefinedOrNull(data.value), 'glyphicon-asterisk': isUndefinedOrNull(data.value)}" aria-hidden="true"></span>
+                <input ng-model="data.value" required type="text" class="form-control" id="{{data.name}}" placeholder="{{data.name}}" name="{{data.name}}">
             </div>
         </div>
         <div class="row">

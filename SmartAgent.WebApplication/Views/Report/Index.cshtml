@@ -13,23 +13,23 @@
         <div class="row">
             <div class="form-group col-md-4" ng-class="{'has-success': !isUndefinedOrNull(name), 'has-error': isUndefinedOrNull(name)}">
                 <label class="control-label" for="name">Name</label>
-                <input ng-model="name" required type="text" class="form-control" id="name" placeholder="Name" name="name">
                 <span class="glyphicon form-control-feedback smallgly" ng-class="{'glyphicon-ok': !isUndefinedOrNull(name), 'glyphicon-asterisk': isUndefinedOrNull(name)}" aria-hidden="true"></span>
+                <input ng-model="name" required type="text" class="form-control" id="name" placeholder="Name" name="name">
             </div>
             <div class="form-group col-md-4" ng-class="{'has-success': !isUndefinedOrNull(location), 'has-error': isUndefinedOrNull(location)}">
                 <label class="control-label" for="location">Location</label>
+                <span class="glyphicon form-control-feedback smallgly" ng-class="{'glyphicon-ok': !isUndefinedOrNull(location), 'glyphicon-asterisk': isUndefinedOrNull(location)}" aria-hidden="true"></span>
                 <input ng-model="location" required type="text" class="form-control" id="location" placeholder="Location" name="location">
-<span class="glyphicon form-control-feedback smallgly" ng-class="{'glyphicon-ok': !isUndefinedOrNull(gender), 'glyphicon-asterisk': isUndefinedOrNull(gender)}" aria-hidden="true"></span>
             </div>
             <div class="form-group col-md-4" ng-class="{'has-success': !isUndefinedOrNull(priority), 'has-error': isUndefinedOrNull(priority)}">
                 <label class="control-label" for="speciality">Priority</label>
+                <span class="glyphicon form-control-feedback smallgly" ng-class="{'glyphicon-ok': !isUndefinedOrNull(priority), 'glyphicon-asterisk': isUndefinedOrNull(priority)}" aria-hidden="true"></span>
                 <select ng-model="priority" required class="form-control" id="priority" name="priority">
                     <option disabled selected value="">Priority</option>
                     <option value="high">High</option>
                     <option value="medium">Medium</option>
                     <option value="low">Low</option>
                 </select>
-                <span class="glyphicon form-control-feedback smallgly" ng-class="{'glyphicon-ok': !isUndefinedOrNull(speciality), 'glyphicon-asterisk': isUndefinedOrNull(speciality)}" aria-hidden="true"></span>
             </div>
         </div>
         <div class="row">
