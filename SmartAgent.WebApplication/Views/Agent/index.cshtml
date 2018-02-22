@@ -3,7 +3,7 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         Columns saved.
     </div>
-    <h2>Tasks</h2>
+    <h2>Agents</h2>
     <button ng-click="showCheckboxes = ! showCheckboxes; showSearch = false" type="button" class="btn btn-dark"><span id="btnicon" class="glyphicon" ng-class="{ 'glyphicon-plus': !showCheckboxes, 'glyphicon-minus': showCheckboxes }" aria-hidden="true"></span> Column choice</button>
     <button ng-click="showSearch = ! showSearch; showCheckboxes = false" type="button" class="btn btn-dark"><span id="btnicon" class="glyphicon" ng-class="{ 'glyphicon-plus': !showSearch, 'glyphicon-minus': showSearch }" aria-hidden="true"></span> Advanced search</button>
     <form ng-show="showCheckboxes" id="columnform">
@@ -51,13 +51,8 @@
         </div>
     </div>
     <div class="floatright">
-        Issues per page:
-        <select ng-model="numPerPage" id="numPerPage" name="numPerPage">
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-        </select>
+        Agents per page:
+        <select id="numPerPage" name="numPerPage" ng-options="item for item in pageSelector" ng-model="numPerPage"></select>
     </div>
     <table class="table table-hover">
         <thead>
@@ -91,30 +86,12 @@
                 <div class="modal-body">
                     <form enctype="multipart/form-data" method="post">
                         <br><br>
-                        <div class="form-group col-md-6">
-                            <label for="name">Issue</label>
-                            <input required type="text" class="form-control" id="name" value="{{agent.task}}" ng-model="agent.task" name="name">
+                        <div class="row">
+                            <div class="form-group col-md-4" ng-repeat="data in filters" ng-show="data.name != 'id'">
+                                <label class="control-label" for="{{data.name}}">{{data.name}}</label>
+                                <input ng-model="agent[data.name]" required type="text" class="form-control" id="{{data.name}}" name="{{data.name}}">
+                            </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="location">Location</label>
-                            <input required type="text" class="form-control" id="location" value="{{agent.location}}" ng-model="agent.location" name="location">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="priority">Priority</label>
-                            <select class="form-control" id="priority" name="priority" value="{{agent.priority}}" ng-model="agent.priority">
-                                <option disabled value="">Priority</option>
-                                <option value="low">low</option>
-                                <option value="medium">medium</option>
-                                <option value="high">high</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="employee">Employee</label>
-                            <select class="form-control" id="employee" name="employee" value="{{agent.employee}}" ng-model="agent.employee">
-                                <option disabled value="">Employee</option>
-                            </select>
-                        </div>
-                        <div class="col-xs-12"><hr></div>
                     </form>
                 </div>
                 <div class="modal-footer">

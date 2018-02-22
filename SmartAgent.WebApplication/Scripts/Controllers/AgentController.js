@@ -13,6 +13,8 @@
     $scope.sort = 'LastName';
     $scope.dir = 1;
 
+    $scope.pageSelector = [5, 10, 25, 50, 100];
+
     $scope.showCheckboxes = false;
     $scope.showSearch = false;
 
@@ -104,7 +106,7 @@
         });
     };
 
-    $scope.globalSearchAgent = function () {
+    $scope.globalSearch = function () {
         var begin = ($scope.currentPage - 1) * $scope.numPerPage
             , end = $scope.numPerPage;
 
@@ -117,25 +119,26 @@
     };
 
     $scope.openEdit = function (id) {
-        services.getSpecificIssue(id).then(function (data) {
-            data.data.priority = parseInt(data.data.priority);
+        services.getSpecificAgent(id).then(function (data) {
             $scope.agent = data.data;
         });
     };
 
     $scope.submitUpdate = function () {
-        services.updateAgent($scope.agent).then(function (data) {
-            data.data;
-            if (data.data.issueupdated === 1) {
+        var json_str = JSON.stringify($scope.agent);
+        services.updateAgent(json_str).then(
+            function (response) {
+                // success callback
                 $scope.success = true;
-                $scope.failure = false;
-            }
-            else {
-                $scope.success = false;
+                $scope.emptySearch();
+                $timeout(function () { $scope.callAtTimeout(); }, 5000);
+            },
+            function (response) {
+                // failure callback
                 $scope.failure = true;
+                $scope.emptySearch();
+                $timeout(function () { $scope.callAtTimeout(); }, 5000);
             }
-            $scope.emptySearch();
-            $timeout(function () { $scope.callAtTimeout(); }, 5000);
-        });
+        );
     };
 });

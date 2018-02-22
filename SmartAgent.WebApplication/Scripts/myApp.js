@@ -29,7 +29,7 @@ app.factory("services", ['$http', function ($http) {
     obj.getSpecificIssue = function (id) {
         return $http.get(serviceBase + 'Tasks/' + id);
     }
-    obj.getSpecificAgents = function (id) {
+    obj.getSpecificAgent = function (id) {
         return $http.get(serviceBase + 'Agents/' + id);
     }
     obj.addTask = function (data) {
@@ -37,6 +37,12 @@ app.factory("services", ['$http', function ($http) {
     }
     obj.addAgent = function (data) {
         return $http.post(serviceBase + 'Agents', data, config);
+    }
+    obj.updateIssue = function (data) {
+        return $http.put(serviceBase + 'Tasks', data, config);
+    }
+    obj.updateAgent = function (data) {
+        return $http.put(serviceBase + 'Agents', data, config);
     }
 
     return obj;
